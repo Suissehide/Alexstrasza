@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {% block menu %}
+        <nav></nav>
+    {% endblock %}
+
+    <div class="container-fluid">
+        {% block page_content %}{% endblock %}
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript"></script>
+{% endblock %}

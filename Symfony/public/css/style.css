@@ -1,0 +1,139 @@
+/*
+ * CSS 
+ */
+
+@font-face {
+	font-family: "Montserrat";
+	src: url('../font/Montserrat-Regular.ttf');
+}
+
+@font-face {
+	font-family: "Montserrat";
+	src: url('../font/Montserrat-Bold.ttf');
+	font-weight: bold;
+}
+
+@font-face {
+	font-family: "Montserrat";
+	src: url('../font/Montserrat-Italic.ttf');
+	font-style: italic;
+}
+
+*, *::after, *::before {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+html {
+	height: 100%;
+	background: #111;
+	/* overflow: hidden; */
+	background-image: radial-gradient(rgba(96, 0, 255, 0.25), rgba(96, 0, 255, 0.05));
+	background: -webkit-radial-gradient(circle, rgba(96, 0, 255, 0.25), rgba(96, 0, 255, 0.05)) #111;
+	background-image: -moz-radial-gradient(50% 50%, circle, rgba(96, 0, 255, 0.25) 50%, rgba(96, 0, 255, 0.05) 100%);
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	background-size: cover;
+}
+
+body {
+	font-family: "Montserrat", Helvetica, Arial, sans-serif;
+	line-height: 20px;
+	font-weight: 400;
+	-webkit-font-smoothing: antialiased;
+	color: #383838;
+	background-color: transparent;
+}
+
+a, a:hover, a:link, a:visited {
+	text-decoration: none;
+}
+
+button:focus {
+	outline: 0 !important;
+}
+
+input:-webkit-autofill {
+	box-shadow: 0 0 0 30px white inset !important;
+}
+
+.content {
+	height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
+	transform: rotate(-90deg);
+	transform-origin: right top;
+}
+
+.content > div {
+	transform: rotate(90deg);
+	transform-origin: right top;
+}
+
+.mode {
+	width: 370px;
+	left: 50%;
+	margin-left: -190px;
+	position: fixed;
+	bottom: 120px;
+	zoom: 1;
+}
+
+.mode:before, .mode:after {
+	content: "";
+	display: table
+}
+
+.mode:after {
+	clear: both
+}
+
+.mode div {
+	display: inline-block;
+	color: #ad85fc;
+	width: 120px;
+	text-align: center
+}
+
+.mode div:hover {
+	background: #0ff;
+	cursor: pointer
+}
+
+.mode div.selected {
+	text-decoration: underline
+}
+
+
+
+.manual {
+	width: 100%;
+	zoom: 1;
+	display: none;
+	background-color: transparent;
+}
+
+.manual:before, .manual:after {
+	content: "";
+	display: table;
+}
+
+.manual:after {
+	clear: both;
+}
+
+.manual .stuff {
+	width: 500px;
+	height: 100px;
+	margin: 400px auto;
+}
+
+.stuff {
+	background-repeat: no-repeat;
+	background-position: center center;
+}
+
+.zerg{
+	background-image: url("../gfx/1.png");
+}
