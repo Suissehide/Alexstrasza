@@ -175,17 +175,20 @@
     }
     Plugin.prototype.parallax = function () {
 
-        // var pos = window.pageYOffset - this.time;
-        var pos = window.pageXOffset - this.time;
+        var pos = window.pageYOffset - this.time;
+
+        if (pos == 0) {
+            pos = window.pageXOffset - this.time;
+        }
 
         for (var i = 0; i < this.levels; i++) {
 
             var $el = this.layers[i].DOM,
-                speed = pos * ((i + 1) / 2);
+                speed = -pos * ((i + 1) / 2);
 
             // $el.css({ 'background-position': '0 ' + speed + 'px' })
             
-            $el.css({ 'background-position': '-' + speed + 'px' + ' 0' })
+            $el.css({ 'background-position': speed + 'px' + ' 0' })
         }
     }
     Plugin.prototype.buildDOMels = function (DOM, i) {

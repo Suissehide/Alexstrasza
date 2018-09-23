@@ -4,13 +4,12 @@ namespace App\Form;
 
 use App\Entity\Utilisateur;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
-use Symfony\Component\Form\Extension\Core\Type\PasswordType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class UtilisateurType extends AbstractType
 {
@@ -19,11 +18,22 @@ class UtilisateurType extends AbstractType
         $builder
             ->add('username', TextType::class, array(
                 'label' => "Nom d'utilisateur",
+                'attr' => array(
+                    'placeholder' => "Identifiant",
+                ),
             ))
             ->add('plainPassword', RepeatedType::class, array(
                 'type' => PasswordType::class,
-                'first_options' => array('label' => 'Mot de Passe'),
-                'second_options' => array('label' => 'Confirmer Mot de Passe'),
+                'first_options' => array(
+                    'label' => 'Mot de passe',
+                    'attr' => array(
+                        'placeholder' => "Mot de passe",
+                )),
+                'second_options' => array(
+                    'label' => 'Confirmer le mot de passe',
+                    'attr' => array(
+                    'placeholder' => "Confirmer le mot de passe",
+                )),
             ))
             ->add('roles', ChoiceType::class, array(
                 'label' => "Rôles",
