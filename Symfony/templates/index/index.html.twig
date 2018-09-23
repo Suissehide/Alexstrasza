@@ -2,9 +2,8 @@
 
 {% block title %}Index{% endblock %}
 
-{% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/scroller.css') }}">
-{% endblock %}
+{% block stylesheets %}{% endblock %}
+
 {% block page_content %}
 
     <div class="content">
@@ -29,11 +28,10 @@
 
 {% block javascripts %}
     <script src="{{ asset('js/starscroll.js') }}"></script>
+    <script src="{{ asset('js/mousewheel.min.js') }}"></script>
+    <script src="{{ asset('js/mCustomScrollbar.min.js') }}"></script>
     <script src="{{ asset('js/controls.js') }}"></script>
     <script type="text/javascript">
-        //$('.starfield').starscroll(16,5,35,4,2,[255,255,0],false,false,'manual');
-        //$('.starfield').starscroll(8,3,30,4,4,[96,255,255],true,true,'8-bit');
-        //$('.starfield').starscroll(16,3,50,5,4,[96,255,255],true,true,'16-bit');
         //$(".starfield").starscroll(bit-mode,layers,stars,dimension,speed,colour,varience,animate);
     </script>
 {% endblock %}

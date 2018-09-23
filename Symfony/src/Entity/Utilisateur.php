@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
@@ -19,7 +21,8 @@ class Utilisateur
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, unique=true)
+     * @Assert\NotBlank()
      */
     private $username;
 
@@ -27,6 +30,12 @@ class Utilisateur
      * @ORM\Column(type="string", length=255)
      */
     private $password;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Length(min=8, max=4096)
+     */
+    private $plainPassword;
 
     /**
      * @ORM\Column(type="array")
@@ -47,6 +56,8 @@ class Utilisateur
      * @ORM\ManyToMany(targetEntity="App\Entity\Option", mappedBy="vote")
      */
     private $vote;
+
+    private $salt;
 
     public function __construct()
     {
@@ -81,6 +92,16 @@ class Utilisateur
         $this->password = $password;
 
         return $this;
+    }
+
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword($password)
+    {
+        $this->plainPassword = $password;
     }
 
     public function getRoles(): ?array
@@ -164,5 +185,33 @@ class Utilisateur
         }
 
         return $this;
+    }
+
+    public function getSalt()
+    {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
+    }
+
+    public function isEqualTo(UserInterface $user)
+    {
+        if (!$user instanceof Utilisateurs) {
+            return false;
+        }
+
+        if ($this->password !== $user->getPassword()) {
+            return false;
+        }
+
+        if ($this->salt !== $user->getSalt()) {
+            return false;
+        }
+
+        if ($this->username !== $user->getUsername()) {
+            return false;
+        }
+
+        return true;
     }
 }

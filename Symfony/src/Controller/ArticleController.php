@@ -87,4 +87,27 @@ class ArticleController extends AbstractController
 
         return $this->redirectToRoute('article_index');
     }
+
+    /**
+     * @Route("/add", name="article_add", methods="GET|POST")
+     */
+    public function add(Request $request): Response
+    {
+        $article = new Article();
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
+
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('article/add.html.twig', [
+            'article' => $article,
+            'form' => $form->createView(),
+        ]);
+    }
 }

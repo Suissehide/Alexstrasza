@@ -1,5 +1,15 @@
 (function ($) {
 
+    $(window).on("load", function () {
+        $(".manual").mCustomScrollbar({
+            axis: "x",
+            theme: "dark-3",
+            advanced: {
+                // autoExpandHorizontalScroll: false
+            }
+        });
+    });
+
     function bit16() {
         window.obj = {
             global: '16-bit'
@@ -26,17 +36,18 @@
         }
         $('h3.nst').html('START SCROLLING!');
         $('h3.rights').hide(100);
-        $('.manual').show(300);
+        // $('.manual').show(300);
+        // $('.manual').css({'display': 'flex'});
         $('html').css({
             'background-image': 'radial-gradient(rgba(194,43,87,.25),rgba(194,43,87,.05))'
-        })
+        });
         $('.mode div:nth-child(3)').addClass('selected');
         $('#starfield').html('').starscroll(16, 5, 35, 4, 2, [255, 255, 0], false, false, 'manual');
     }
     function reset() {
         $('h3.nst').html('INSERT COIN');
         $('h3.rights').show(100);
-        $('.manual').hide(0);
+        // $('.manual').hide(0);
         $('.mode').children('div').each(function (i) {
             $this = $(this);
             $this.removeClass('selected');
