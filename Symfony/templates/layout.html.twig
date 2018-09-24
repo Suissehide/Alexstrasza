@@ -1,14 +1,38 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
     {% block menu %}
-        <nav></nav>
+        <div class="title">Inserm u1034</div>
+        <nav>
+            <ul class="menu">
+                <li class="pull-left">
+                    <a href="{{ path('article_add') }}">
+                        <div class="glyphicon-ring glyphicon-white">
+                            <span class="glyphicon glyphicon-plus glyphicon-bordered"></span>
+                        </div>
+                    </a>
+                </li>
+                <li class="pull-right">
+                    <a href="{{ path('logout') }}">
+                        <div class="glyphicon-ring glyphicon-white">
+                            <span class="glyphicon glyphicon-off glyphicon-bordered"></span>
+                        </div>
+                    </a>
+                </li>
+                <li class="user pull-right">
+                    <a>
+                        <div class="glyphicon-ring glyphicon-white">
+                            <span class="glyphicon glyphicon-user glyphicon-bordered"></span>
+                        </div>
+                    </a>
+                    <div class="username">{{ app.user.username }}</div>
+                </li>
+            </ul>
+        </nav>
     {% endblock %}
 
-    <div class="container-fluid">
-        {% block page_content %}{% endblock %}
-    </div>
+    {% block page_content %}{% endblock %}
+
 {% endblock %}
 
 {% block javascripts %}

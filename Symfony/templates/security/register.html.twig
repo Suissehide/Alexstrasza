@@ -5,14 +5,15 @@
 {% form_theme form _self %}
 
 {% block _utilisateur_username_widget %}
-    <div class="has-feedback">
+    <div class="has-feedback form-row">
         {{ block('form_widget_simple') }}
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
     </div>
 {% endblock %}
 
-{% block _utilisateur_plainPassword_first_widget %}
-    <div class="has-feedback">
+{% block password_widget %}
+    <div class="has-feedback form-row">
+        {% set type = type | default("password") %}
         {{ block('form_widget_simple') }}
         <span class="glyphicon glyphicon-lock form-control-feedback"></span>
     </div>
@@ -30,15 +31,11 @@
         <div class="row login-form">
             <div class="form-signin">
                 {{ form_start(form) }}
-                <div class="form-row">
-                    {{ form_widget(form.username, {'attr': {'autofocus' : true} }) }}
-                </div>
-                <div class="form-row">
-                    {{ form_widget(form.plainPassword.first) }}
-                </div>
-                <div class="form-row">
-                    {{ form_widget(form.plainPassword.second) }}
-                </div>
+
+                {{ form_row(form.username, {'attr': {'autofocus' : true} }) }}
+                {{ form_row(form.plainPassword.first) }}
+                {{ form_row(form.plainPassword.second) }}
+
                 <div class="submit-btn">
                     <button class="button btn-block" type="submit">Enregistrer</button>
                 </div>

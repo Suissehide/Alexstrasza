@@ -14,13 +14,12 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
-
     /**
      * @Route("/", name="default")
      */
     public function index()
     {
-        return $this->redirectToRoute('login');
+        return $this->redirectToRoute('index');
     }
 
     /**
@@ -28,7 +27,6 @@ class SecurityController extends AbstractController
      */
     public function login(Request $request, AuthenticationUtils $authenticationUtils)
     {
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
 
@@ -69,12 +67,28 @@ class SecurityController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
-
+    
     /**
-     * @Route("/logout", name="logout")
+     * @Route("/logout", name="logout", methods="GET")
      */
-    public function logout()
+    public function logout(): Response
     {
         return $this->redirectToRoute('login');
+    }
+
+        /**
+     * @Route("/check_last_login", name="check_last_login")
+     */
+    public function checkLastLogin(EntityManagerInterface $em) {
+
+        $user = $this->getUser();
+        $roles = $user->getRoles();
+
+        if (in_array("ROLE_USER", $roles)) {
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->redirectToRoute('index');
+
     }
 }

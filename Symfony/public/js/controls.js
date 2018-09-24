@@ -1,15 +1,5 @@
 (function ($) {
 
-    $(window).on("load", function () {
-        $(".manual").mCustomScrollbar({
-            axis: "x",
-            theme: "dark-3",
-            advanced: {
-                // autoExpandHorizontalScroll: false
-            }
-        });
-    });
-
     function bit16() {
         window.obj = {
             global: '16-bit'

@@ -5,13 +5,16 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
+ * @UniqueEntity(fields="username", message="Ce nom d'utilisateur est déjà utilisé.")
  */
-class Utilisateur
+class Utilisateur implements UserInterface, EquatableInterface
 {
     /**
      * @ORM\Id()
@@ -34,6 +37,7 @@ class Utilisateur
     /**
      * @Assert\NotBlank()
      * @Assert\Length(min=8, max=4096)
+     * @Assert\Regex(pattern="/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/", message="Cette chaîne doit contenir au moins une majuscule, une minuscule et un nombre.")
      */
     private $plainPassword;
 
@@ -65,29 +69,29 @@ class Utilisateur
         $this->vote = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId() : ? int
     {
         return $this->id;
     }
 
-    public function getUsername(): ?string
+    public function getUsername() : ? string
     {
         return $this->username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername(string $username) : self
     {
         $this->username = $username;
 
         return $this;
     }
 
-    public function getPassword(): ?string
+    public function getPassword() : ? string
     {
         return $this->password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword(string $password) : self
     {
         $this->password = $password;
 
@@ -104,12 +108,12 @@ class Utilisateur
         $this->plainPassword = $password;
     }
 
-    public function getRoles(): ?array
+    public function getRoles() : ? array
     {
         return $this->roles;
     }
 
-    public function setRoles(array $roles): self
+    public function setRoles(array $roles) : self
     {
         $this->roles = $roles;
 
@@ -119,12 +123,12 @@ class Utilisateur
     /**
      * @return Collection|Article[]
      */
-    public function getArticle(): Collection
+    public function getArticle() : Collection
     {
         return $this->article;
     }
 
-    public function addArticle(Article $article): self
+    public function addArticle(Article $article) : self
     {
         if (!$this->article->contains($article)) {
             $this->article[] = $article;
@@ -134,7 +138,7 @@ class Utilisateur
         return $this;
     }
 
-    public function removeArticle(Article $article): self
+    public function removeArticle(Article $article) : self
     {
         if ($this->article->contains($article)) {
             $this->article->removeElement($article);
@@ -147,12 +151,12 @@ class Utilisateur
         return $this;
     }
 
-    public function getThumb(): ?Article
+    public function getThumb() : ? Article
     {
         return $this->thumb;
     }
 
-    public function setThumb(?Article $thumb): self
+    public function setThumb(? Article $thumb) : self
     {
         $this->thumb = $thumb;
 
@@ -162,12 +166,12 @@ class Utilisateur
     /**
      * @return Collection|Option[]
      */
-    public function getVote(): Collection
+    public function getVote() : Collection
     {
         return $this->vote;
     }
 
-    public function addVote(Option $vote): self
+    public function addVote(Option $vote) : self
     {
         if (!$this->vote->contains($vote)) {
             $this->vote[] = $vote;
@@ -177,7 +181,7 @@ class Utilisateur
         return $this;
     }
 
-    public function removeVote(Option $vote): self
+    public function removeVote(Option $vote) : self
     {
         if ($this->vote->contains($vote)) {
             $this->vote->removeElement($vote);
@@ -192,6 +196,10 @@ class Utilisateur
         // you *may* need a real salt depending on your encoder
         // see section on salt below
         return null;
+    }
+
+    public function eraseCredentials()
+    {
     }
 
     public function isEqualTo(UserInterface $user)

@@ -19,21 +19,17 @@
         </div>
 
         <div class="row login-form">
-            <form class="form-signin " action="{{ path('login') }}" method="post">
-                <div class="form-row">
-                    <div class="form-group has-feedback">
-                        <input type="text" id="inputUsername" name="_username" placeholder="Identifiant" required="required" autofocus="autofocus">
-                        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-                    </div>
+            <form class="form-signin" action="{{ path('login') }}" method="post">
+                <div class="form-row form-group has-feedback">
+                    <input class="form-control" type="text" id="username" name="_username" placeholder="Identifiant" required="required" autofocus="autofocus" value="{{ last_username }}">
+                    <span class="glyphicon glyphicon-user form-control-feedback"></span>
                 </div>
-                <div class="form-row">
-                    <div class="form-group has-feedback">
-                        <input type="password" name="_password" id="inputPassword" placeholder="Mot de passe" aria-describedby="passwordHelp" required="required">
-                        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-                    </div>
+                <div class="form-row form-group has-feedback">
+                    <input class="form-control" type="password" name="_password" id="password" placeholder="Mot de passe" aria-describedby="passwordHelp" required="required">
+                    <span class="glyphicon glyphicon-lock form-control-feedback"></span>
                 </div>
                 <div class="form-check checkbox">
-                    <input class="form-check-input inp-cbx" id="cbx" type="checkbox" name="_remember_me" style="display: none;"/>
+                    <input class="form-control form-check-input inp-cbx" id="cbx" type="checkbox" name="_remember_me" style="display: none;"/>
                     <label class="cbx" for="cbx">
                         <span>
                             <svg width="12px" height="10px" viewbox="0 0 12 10">
