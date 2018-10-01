@@ -55,8 +55,6 @@ body::-webkit-scrollbar {
 
 a, a:hover, a:link, a:visited {
     text-decoration: none;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
 }
 
 button:focus, textarea:focus, input:focus {
@@ -88,91 +86,189 @@ input:-webkit-autofill {
     float: left;
 }
 
+.violet {
+    color: palevioletred;
+}
+
 /* Menu
 ================= */
 
-.title {
-    position: fixed;
+.menu {
+    -webkit-filter: url("#shadowed-goo");
+    filter: url("#shadowed-goo");
+}
+
+.menu-item, .menu-open-button {
+    background: palevioletred;
+    border-radius: 100%;
+    width: 80px;
+    height: 80px;
+    margin-left: -40px;
+    position: absolute;
+    top: 20px;
+    color: white;
+    text-align: center;
+    line-height: 80px;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    transition: -webkit-transform ease-out 200ms;
+    transition: transform ease-out 200ms;
+    transition: transform ease-out 200ms, -webkit-transform ease-out 200ms;
+}
+
+.menu-open {
+    display: none;
+}
+
+.hamburger {
+    width: 25px;
+    height: 3px;
+    background: white;
+    display: block;
+    position: absolute;
+    top: 50%;
     left: 50%;
-    transform: translate(-50%, 0);
-    margin-top: 35px;
-    font-weight: 700;
-    font-size: 32px;
-    color: palevioletred;
+    margin-left: -12.5px;
+    margin-top: -1.5px;
+    transition: -webkit-transform 200ms;
+    transition: transform 200ms;
+    transition: transform 200ms, -webkit-transform 200ms;
+}
+
+.hamburger-1 {
+    -webkit-transform: translate3d(0, -8px, 0);
+    transform: translate3d(0, -8px, 0);
+}
+
+.hamburger-2 {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.hamburger-3 {
+    -webkit-transform: translate3d(0, 8px, 0);
+    transform: translate3d(0, 8px, 0);
+}
+
+.menu-open:checked+.menu-open-button .hamburger-1 {
+    -webkit-transform: translate3d(0, 0, 0) rotate(45deg);
+    transform: translate3d(0, 0, 0) rotate(45deg);
+}
+
+.menu-open:checked+.menu-open-button .hamburger-2 {
+    -webkit-transform: translate3d(0, 0, 0) scale(0.1, 1);
+    transform: translate3d(0, 0, 0) scale(0.1, 1);
+}
+
+.menu-open:checked+.menu-open-button .hamburger-3 {
+    -webkit-transform: translate3d(0, 0, 0) rotate(-45deg);
+    transform: translate3d(0, 0, 0) rotate(-45deg);
 }
 
 .menu {
     position: fixed;
-    cursor: default;
-    top: 0;
-    width: 100%;
-    margin: 20px 0;
+    left: 70px;
+    top: 10px;
+    margin-left: -80px;
+    padding-top: 20px;
+    padding-left: 80px;
+    width: 650px;
+    height: 150px;
+    box-sizing: border-box;
+    font-size: 20px;
+    text-align: left;
 }
 
-.menu>li {
-    display: block;
-    margin: 0 15px;
+.menu-item:hover {
+    background: white;
+    color: palevioletred;
 }
 
-.menu>li>a {
+.menu-item:nth-child(3) {
+    transition-duration: 180ms;
+}
+
+.menu-item:nth-child(4) {
+    transition-duration: 180ms;
+}
+
+.menu-item:nth-child(5) {
+    transition-duration: 180ms;
+}
+
+.menu-item:nth-child(6) {
+    transition-duration: 180ms;
+}
+
+.menu-open-button {
+    z-index: 2;
+    transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition-duration: 400ms;
+    -webkit-transform: scale(1.1, 1.1) translate3d(0, 0, 0);
+    transform: scale(1.1, 1.1) translate3d(0, 0, 0);
     cursor: pointer;
 }
 
-.glyphicon-ring {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 4px solid white;
-    color: white;
-    display: inline-table;
-    text-align: center;
+.menu-open-button:hover {
+    -webkit-transform: scale(1.2, 1.2) translate3d(0, 0, 0);
+    transform: scale(1.2, 1.2) translate3d(0, 0, 0);
 }
 
-.glyphicon-ring .glyphicon-bordered {
-    font-size: 20px;
-    top: 0px;
-    left: 0px;
-    vertical-align: middle;
-    display: table-cell;
+.menu-open:checked+.menu-open-button {
+    transition-timing-function: linear;
+    transition-duration: 200ms;
+    -webkit-transform: scale(0.8, 0.8) translate3d(0, 0, 0);
+    transform: scale(0.8, 0.8) translate3d(0, 0, 0);
 }
 
-.glyphicon-white {
-    background: palevioletred;
-    color: #00000080;
-    border: 4px solid #00000080;
-    -webkit-text-stroke: 0.5px black;
+.menu-open:checked~.menu-item {
+    transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
-.menu>li:hover .glyphicon-white {
-    border-color: white;
-    color: white;
-    -webkit-text-stroke: 0.5px white;
-    -webkit-transition-duration: 0.4s;
-    transition-duration: 0.4s;
+.menu-open:checked~.menu-item:nth-child(3) {
+    transition-duration: 190ms;
+    -webkit-transform: translate3d(110px, 0, 0);
+    transform: translate3d(110px, 0, 0);
 }
 
-.username {
-    background: palevioletred;
-    border: 4px solid #00000080;
-    font-weight: 700;
-    color: white;
-    text-align: center;
-    margin-top: 6px;
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s, opacity 0.3s linear;
+.menu-open:checked~.menu-item:nth-child(4) {
+    transition-duration: 290ms;
+    -webkit-transform: translate3d(220px, 0, 0);
+    transform: translate3d(220px, 0, 0);
 }
 
-.user:hover .username {
-    visibility: visible;
-    opacity: 1;
+.menu-open:checked~.menu-item:nth-child(5) {
+    transition-duration: 390ms;
+    -webkit-transform: translate3d(330px, 0, 0);
+    transform: translate3d(330px, 0, 0);
+}
+
+.menu-open:checked~.menu-item:nth-child(6) {
+    transition-duration: 490ms;
+    -webkit-transform: translate3d(440px, 0, 0);
+    transform: translate3d(440px, 0, 0);
+}
+
+.logo {
+    position: fixed;
+    top: 25px;
+    right: -5px;
+    background: transparent url("../gfx/logo.png") no-repeat center;
+    background-size: contain;
+    height: 100px;
+    width: 300px;
 }
 
 /* Index
 ================= */
 
-.content {
-    cursor: grab;
+.scroll {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+}
+
+.wrapper {
     height: 100%;
     bottom: 0;
     top: 0;
@@ -181,14 +277,64 @@ input:-webkit-autofill {
 }
 
 .manual {
-    min-width: 100%;
-    height: 90%;
-    /* zoom: 2; */
-    /* display: none; */
-    /* white-space: nowrap; */
-    display: flex;
+    cursor: grab;
+    z-index: 50;
+    top: 150px;
+    width: 6000px;
+    height: 100%;
+    /* display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: center; */
+}
+
+.manual .article {
+    left: 1450px;
+    top: 0px;
+    max-width: 500px;
+    padding: 20px;
+    background-color: #00000075;
+    padding: 20px 30px;
+    color: white;
+    position: absolute;
+    cursor: default;
+}
+
+.article .flex {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+}
+
+.article .title {
+    font-size: 16px;
+}
+
+.article .date {
+    color: palevioletred;
+    font-size: 10px;
+}
+
+.article .content {
+    margin: 10px 0;
+}
+
+.article .separator {
+    margin: 10px 0;
+    border-top: 1px solid palevioletred;
+}
+
+.sondage {
+    padding-top: 10px;
+    border-top: 1px solid palevioletred;
+}
+
+.sondage .title {
+    margin-bottom: 10px;
+}
+
+.sondage .votes {
+    float: right;
+    margin-right: 10px;
 }
 
 .manual .stuff {
@@ -196,7 +342,6 @@ input:-webkit-autofill {
     height: 100px;
     background-repeat: no-repeat;
     background-position: center center;
-    /* display: inline-block; */
     flex: 0 0 auto;
 }
 
@@ -205,6 +350,7 @@ input:-webkit-autofill {
 }
 
 .mode {
+    z-index: 100;
     width: 370px;
     left: 50%;
     margin-left: -190px;
@@ -246,7 +392,7 @@ input:-webkit-autofill {
     background: #ffffff;
     width: 100%;
     padding: 10px 5px;
-    border: #ffffff 1px solid;
+    border: #ffffff 2px solid;
     transition: all .3s ease;
     -webkit-transition: all .3s ease;
 }
@@ -254,7 +400,25 @@ input:-webkit-autofill {
 .button:hover {
     color: #fff;
     background: transparent;
-    border: #ffffff 1px solid;
+    border-color: #ffffff;
+}
+
+.button-block {
+    margin: 10px -10px;
+    display: flex;
+    flex-flow: row;
+}
+
+.btn-light {
+    margin: 0 10px;
+    background-color: transparent;
+    border-color: #c7c7c7;
+    color: white;
+}
+
+.btn-light:hover {
+    border-color: #878787;
+    color: #878787;
 }
 
 /* Login / Register
@@ -456,4 +620,406 @@ input:-webkit-autofill {
 
 .closebtn:hover {
     color: black;
+}
+
+/* Radio / Checkbox
+================= */
+
+.funkyradio div {
+    clear: both;
+    overflow: hidden;
+}
+
+.funkyradio label {
+    width: 100%;
+    border-radius: 3px;
+    border: 1px solid #D1D3D4;
+    font-weight: normal;
+}
+
+.funkyradio input[type="radio"]:empty, .funkyradio input[type="checkbox"]:empty {
+    display: none;
+}
+
+.funkyradio input[type="radio"]:empty~label, .funkyradio input[type="checkbox"]:empty~label {
+    position: relative;
+    line-height: 2.5em;
+    text-indent: 3.25em;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.funkyradio input[type="radio"]:empty~label:before, .funkyradio input[type="checkbox"]:empty~label:before {
+    position: absolute;
+    display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    content: '';
+    width: 2.5em;
+    background: #D1D3D4;
+    border-radius: 3px 0 0 3px;
+}
+
+.funkyradio input[type="radio"]:hover:not(:checked)~label, .funkyradio input[type="checkbox"]:hover:not(:checked)~label {
+    color: #888;
+}
+
+.funkyradio input[type="radio"]:hover:not(:checked)~label:before, .funkyradio input[type="checkbox"]:hover:not(:checked)~label:before {
+    content: '\2714';
+    text-indent: .9em;
+    color: #C2C2C2;
+}
+
+.funkyradio input[type="radio"]:checked~label, .funkyradio input[type="checkbox"]:checked~label {
+    color: #777;
+}
+
+.funkyradio input[type="radio"]:checked~label:before, .funkyradio input[type="checkbox"]:checked~label:before {
+    content: '\2714';
+    text-indent: .9em;
+    color: #333;
+    background-color: #ccc;
+}
+
+.funkyradio input[type="radio"]:focus~label:before, .funkyradio input[type="checkbox"]:focus~label:before {
+    box-shadow: 0 0 0 3px #999;
+}
+
+.funkyradio-default input[type="radio"]:checked~label:before, .funkyradio-default input[type="checkbox"]:checked~label:before {
+    color: black;
+    background-color: palevioletred;
+}
+
+/* Like
+================= */
+
+.like-button {
+    width: 100%;
+    margin: 0 10px;
+    border: 2px solid #c7c7c7;
+    padding: .45rem .75rem;
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    -webkit-filter: grayscale(100%);
+    filter: grayscale(100%);
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+}
+
+.like-button.liked {
+    color: palevioletred;
+    border-color: palevioletred;
+    -webkit-filter: grayscale(0);
+    filter: grayscale(0);
+}
+
+.like-button:hover {
+    color: #878787;
+    border-color: #878787;
+}
+
+.like-button.liked:hover {
+    color: palevioletred;
+    border-color: palevioletred;
+}
+
+.like-icon {
+    width: 18px;
+    height: 16px;
+    display: inline-block;
+    position: relative;
+    margin-right: .25em;
+    font-size: 1.5rem;
+    background: url('data:image/svg+xml;utf8,<svg width="21" height="18" viewBox="0 0 21 18" xmlns="http://www.w3.org/2000/svg"><title>heart-colored</title><path d="M10.101 4.417S8.895.207 5.111.207c-4.465 0-10.967 6.846 5.082 17.592C25.237 7.03 19.665.202 15.501.202c-4.162 0-5.4 4.215-5.4 4.215z" fill="%23FF6E6F" fill-rule="evenodd"/></svg>') no-repeat center;
+    background-size: 100%;
+    -webkit-animation: heartUnlike 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    animation: heartUnlike 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.liked .like-icon {
+    -webkit-animation: heartPulse 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    animation: heartPulse 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.liked .like-icon [class^="heart-animation-"] {
+    background: url('data:image/svg+xml;utf8,<svg width="21" height="18" viewBox="0 0 21 18" xmlns="http://www.w3.org/2000/svg"><title>heart-colored</title><path d="M10.101 4.417S8.895.207 5.111.207c-4.465 0-10.967 6.846 5.082 17.592C25.237 7.03 19.665.202 15.501.202c-4.162 0-5.4 4.215-5.4 4.215z" fill="%23FF6E6F" fill-rule="evenodd"/></svg>') no-repeat center;
+    background-size: 100%;
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 16px;
+    height: 14px;
+    opacity: 0;
+}
+
+.liked .like-icon [class^="heart-animation-"]::before, .liked .like-icon [class^="heart-animation-"]::after {
+    content: '';
+    background: inherit;
+    background-size: 100%;
+    width: inherit;
+    height: inherit;
+    display: inherit;
+    position: relative;
+    top: inherit;
+    left: inherit;
+    opacity: 0;
+}
+
+.liked .like-icon .heart-animation-1 {
+    -webkit-animation: heartFloatMain-1 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    animation: heartFloatMain-1 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.liked .like-icon .heart-animation-1::before, .liked .like-icon .heart-animation-1::after {
+    width: 12px;
+    height: 10px;
+    visibility: hidden;
+}
+
+.liked .like-icon .heart-animation-1::before {
+    opacity: .6;
+    -webkit-animation: heartFloatSub-1 1s 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    animation: heartFloatSub-1 1s 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.liked .like-icon .heart-animation-1::after {
+    -webkit-animation: heartFloatSub-2 1s 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    animation: heartFloatSub-2 1s 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    opacity: .75;
+}
+
+.liked .like-icon .heart-animation-2 {
+    -webkit-animation: heartFloatMain-2 1s 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    animation: heartFloatMain-2 1s 0.1s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.liked .like-icon .heart-animation-2::before, .liked .like-icon .heart-animation-2::after {
+    width: 10px;
+    height: 8px;
+    visibility: hidden;
+}
+
+.liked .like-icon .heart-animation-2::before {
+    -webkit-animation: heartFloatSub-3 1s 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    animation: heartFloatSub-3 1s 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    opacity: .25;
+}
+
+.liked .like-icon .heart-animation-2::after {
+    -webkit-animation: heartFloatSub-4 1s 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    animation: heartFloatSub-4 1s 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    opacity: .4;
+}
+
+@-webkit-keyframes heartPulse {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    50% {
+        -webkit-transform: scale(1.5);
+        transform: scale(1.5);
+    }
+}
+
+@keyframes heartPulse {
+    0% {
+        -webkit-transform: scale(1);
+        transform: scale(1);
+    }
+    50% {
+        -webkit-transform: scale(1.5);
+        transform: scale(1.5);
+    }
+}
+
+@-webkit-keyframes heartUnlike {
+    50% {
+        -webkit-transform: scale(0.75);
+        transform: scale(0.75);
+    }
+}
+
+@keyframes heartUnlike {
+    50% {
+        -webkit-transform: scale(0.75);
+        transform: scale(0.75);
+    }
+}
+
+@-webkit-keyframes heartFloatMain-1 {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate(0) rotate(0);
+        transform: translate(0) rotate(0);
+    }
+    50% {
+        opacity: 1;
+        -webkit-transform: translate(0, -25px) rotate(-20deg);
+        transform: translate(0, -25px) rotate(-20deg);
+    }
+}
+
+@keyframes heartFloatMain-1 {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate(0) rotate(0);
+        transform: translate(0) rotate(0);
+    }
+    50% {
+        opacity: 1;
+        -webkit-transform: translate(0, -25px) rotate(-20deg);
+        transform: translate(0, -25px) rotate(-20deg);
+    }
+}
+
+@-webkit-keyframes heartFloatMain-2 {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate(0) rotate(0) scale(0);
+        transform: translate(0) rotate(0) scale(0);
+    }
+    50% {
+        opacity: .9;
+        -webkit-transform: translate(-10px, -38px) rotate(25deg) scale(1);
+        transform: translate(-10px, -38px) rotate(25deg) scale(1);
+    }
+}
+
+@keyframes heartFloatMain-2 {
+    0% {
+        opacity: 0;
+        -webkit-transform: translate(0) rotate(0) scale(0);
+        transform: translate(0) rotate(0) scale(0);
+    }
+    50% {
+        opacity: .9;
+        -webkit-transform: translate(-10px, -38px) rotate(25deg) scale(1);
+        transform: translate(-10px, -38px) rotate(25deg) scale(1);
+    }
+}
+
+@-webkit-keyframes heartFloatSub-1 {
+    0% {
+        visibility: hidden;
+        -webkit-transform: translate(0) rotate(0);
+        transform: translate(0) rotate(0);
+    }
+    50% {
+        visibility: visible;
+        -webkit-transform: translate(13px, -13px) rotate(30deg);
+        transform: translate(13px, -13px) rotate(30deg);
+    }
+}
+
+@keyframes heartFloatSub-1 {
+    0% {
+        visibility: hidden;
+        -webkit-transform: translate(0) rotate(0);
+        transform: translate(0) rotate(0);
+    }
+    50% {
+        visibility: visible;
+        -webkit-transform: translate(13px, -13px) rotate(30deg);
+        transform: translate(13px, -13px) rotate(30deg);
+    }
+}
+
+@-webkit-keyframes heartFloatSub-2 {
+    0% {
+        visibility: hidden;
+        -webkit-transform: translate(0) rotate(0);
+        transform: translate(0) rotate(0);
+    }
+    50% {
+        visibility: visible;
+        -webkit-transform: translate(18px, -10px) rotate(55deg);
+        transform: translate(18px, -10px) rotate(55deg);
+    }
+}
+
+@keyframes heartFloatSub-2 {
+    0% {
+        visibility: hidden;
+        -webkit-transform: translate(0) rotate(0);
+        transform: translate(0) rotate(0);
+    }
+    50% {
+        visibility: visible;
+        -webkit-transform: translate(18px, -10px) rotate(55deg);
+        transform: translate(18px, -10px) rotate(55deg);
+    }
+}
+
+@-webkit-keyframes heartFloatSub-3 {
+    0% {
+        visibility: hidden;
+        -webkit-transform: translate(0) rotate(0);
+        transform: translate(0) rotate(0);
+    }
+    50% {
+        visibility: visible;
+        -webkit-transform: translate(-10px, -10px) rotate(-40deg);
+        transform: translate(-10px, -10px) rotate(-40deg);
+    }
+    100% {
+        -webkit-transform: translate(-50px, 0);
+        transform: translate(-50px, 0);
+    }
+}
+
+@keyframes heartFloatSub-3 {
+    0% {
+        visibility: hidden;
+        -webkit-transform: translate(0) rotate(0);
+        transform: translate(0) rotate(0);
+    }
+    50% {
+        visibility: visible;
+        -webkit-transform: translate(-10px, -10px) rotate(-40deg);
+        transform: translate(-10px, -10px) rotate(-40deg);
+    }
+    100% {
+        -webkit-transform: translate(-50px, 0);
+        transform: translate(-50px, 0);
+    }
+}
+
+@-webkit-keyframes heartFloatSub-4 {
+    0% {
+        visibility: hidden;
+        -webkit-transform: translate(0) rotate(0);
+        transform: translate(0) rotate(0);
+    }
+    50% {
+        visibility: visible;
+        -webkit-transform: translate(2px, -18px) rotate(-25deg);
+        transform: translate(2px, -18px) rotate(-25deg);
+    }
+}
+
+@keyframes heartFloatSub-4 {
+    0% {
+        visibility: hidden;
+        -webkit-transform: translate(0) rotate(0);
+        transform: translate(0) rotate(0);
+    }
+    50% {
+        visibility: visible;
+        -webkit-transform: translate(2px, -18px) rotate(-25deg);
+        transform: translate(2px, -18px) rotate(-25deg);
+    }
 }

@@ -29,9 +29,7 @@ security:
             remember_me:
                 secret: '%kernel.secret%'
                 lifetime: 604800 # 1 semaine
-                path: /
-                domain: ~
-                always_remember_me: true
+                # always_remember_me: true
             logout:
                 path: logout
                 target: login

@@ -204,15 +204,11 @@ class Utilisateur implements UserInterface, EquatableInterface
 
     public function isEqualTo(UserInterface $user)
     {
-        if (!$user instanceof Utilisateurs) {
+        if (!$user instanceof Utilisateur) {
             return false;
         }
 
         if ($this->password !== $user->getPassword()) {
-            return false;
-        }
-
-        if ($this->salt !== $user->getSalt()) {
             return false;
         }
 

@@ -6,32 +6,94 @@
 
 {% block page_content %}
 
-    <div class="content">
+    <div class="wrapper">
         <div id="starfield"></div>
         <div class="mode">
             <div>8-bit</div>
             <div class="selected">16-bit</div>
             <div>Manual</div>
         </div>
-        <div class="manual">
+        <div class="manual scroll">
+            <div class="article">
+                <div class="flex">
+                    <div>
+                        <div class="title">Titre</div>
+                        <div class="date">lundi 01 octobre</div>
+                    </div>
+                    <div class="username violet">Léo</div>
+                </div>
+                <div class="content">
+                    Mox dicta finierat, multitudo omnis ad, quae imperator voluit, promptior laudato consilio consensit in pacem ea ratione maxime percita, quod norat expeditionibus crebris fortunam eius in malis tantum civilibus vigilasse, cum autem bella moverentur externa, accidisse plerumque luctuosa, icto post haec foedere gentium ritu perfectaque sollemnitate imperator Mediolanum ad hiberna discessit.
+                </div>
+                <div class="img"></div>
+
+                <div class="sondage">
+                    <div class="title">Le lait, avant ou après les céréales ?</div>
+                    <div class="option funkyradio">
+                        <div class="funkyradio-default">
+                            <input type="checkbox" name="checkbox" id="checkbox1"/>
+                            <label for="checkbox1">Avant</label>
+                        </div>
+                    </div>
+                    <div class="option funkyradio">
+                        <div class="funkyradio-default">
+                            <input type="checkbox" name="checkbox" id="checkbox2"/>
+                            <label for="checkbox2">
+                                Apres
+                                <span class="votes violet">+ 12</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="separator"></div>
+
+                <div class="thumb">
+                    <span class="fa fa-heart"></span>
+                    12</div>
+
+                <div class="button-block">
+                    <a class='like-button'>
+                        <span class='like-icon'>
+                            <div class='heart-animation-1'></div>
+                            <div class='heart-animation-2'></div>
+                        </span>
+                        J'aime
+                    </a>
+                    <button class="button btn-light">
+                        <span class="fa fa-comments">
+                            Commenter
+                        </button>
+                    </div>
+                </div>
+                {# <div class="stuff zerg"></div>
             <div class="stuff zerg"></div>
             <div class="stuff zerg"></div>
             <div class="stuff zerg"></div>
             <div class="stuff zerg"></div>
             <div class="stuff zerg"></div>
-            <div class="stuff zerg"></div>
-            <div class="stuff zerg"></div>
+            <div class="stuff zerg"></div> #}
+            </div>
+            <div class="timeline"></div>
         </div>
-        <div class="timeline"></div>
-    </div>
 
-{% endblock %}
+    {% endblock %}
 
-{% block javascripts %}
-    <script src="{{ asset('js/starscroll.js') }}"></script>
-    <script src="{{ asset('js/dragscroll.js') }}"></script>
-    <script src="{{ asset('js/controls.js') }}"></script>
-    <script type="text/javascript">
-        //$(".starfield").starscroll(bit-mode,layers,stars,dimension,speed,colour,varience,animate);
-    </script>
-{% endblock %}
+    {% block javascripts %}
+        <script src="{{ asset('js/starscroll.js') }}"></script>
+        <script src="{{ asset('js/dragscroll.js') }}"></script>
+        <script src="{{ asset('js/controls.js') }}"></script>
+        <script type="text/javascript">
+            (function ($) {
+                $.jInvertScroll(['.scroll']);
+            }(jQuery));
+
+            $(document).ready(function () {
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 200);
+            });
+            //$(".starfield").starscroll(bit-mode,layers,stars,dimension,speed,colour,varience,animate);
+        </script>
+
+    {% endblock %}
