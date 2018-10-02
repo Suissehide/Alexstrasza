@@ -188,8 +188,9 @@
 
             // $el.css({ 'background-position': '0 ' + speed + 'px' })
             
-            $el.css({ 'background-position': speed + 'px' + ' 0' })
+            $el.css({ 'background-position': speed + 'px 0' })
         }
+        $('html').css({ 'background-position': speed + 'px ' + (-0.7 * speed) + 'px' })
     }
     Plugin.prototype.buildDOMels = function (DOM, i) {
 

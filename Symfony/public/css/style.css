@@ -45,8 +45,6 @@ body {
     -webkit-font-smoothing: antialiased;
     color: #383838;
     background-color: transparent;
-    -webkit-overflow-scrolling: touch;
-    -ms-overflow-style: -ms-autohiding-scrollbar;
 }
 
 body::-webkit-scrollbar {
@@ -261,13 +259,6 @@ input:-webkit-autofill {
 
 /* Index
 ================= */
-
-.scroll {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-}
-
 .wrapper {
     height: 100%;
     bottom: 0;

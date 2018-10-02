@@ -32,7 +32,10 @@
                     <div class="option funkyradio">
                         <div class="funkyradio-default">
                             <input type="checkbox" name="checkbox" id="checkbox1"/>
-                            <label for="checkbox1">Avant</label>
+                            <label for="checkbox1">
+                                Avant
+                                <span class="votes violet">+ 0</span>
+                            </label>
                         </div>
                     </div>
                     <div class="option funkyradio">
@@ -40,7 +43,7 @@
                             <input type="checkbox" name="checkbox" id="checkbox2"/>
                             <label for="checkbox2">
                                 Apres
-                                <span class="votes violet">+ 12</span>
+                                <span class="votes violet">+ 5</span>
                             </label>
                         </div>
                     </div>
@@ -80,20 +83,19 @@
     {% endblock %}
 
     {% block javascripts %}
-        <script src="{{ asset('js/starscroll.js') }}"></script>
-        <script src="{{ asset('js/dragscroll.js') }}"></script>
-        <script src="{{ asset('js/controls.js') }}"></script>
         <script type="text/javascript">
             (function ($) {
                 $.jInvertScroll(['.scroll']);
             }(jQuery));
 
-            $(document).ready(function () {
+            {# $(document).ready(function () {
                 $('html, body').animate({
                     scrollTop: 0
                 }, 200);
-            });
+            }); #}
             //$(".starfield").starscroll(bit-mode,layers,stars,dimension,speed,colour,varience,animate);
         </script>
-
+        <script src="{{ asset('js/starscroll.js') }}"></script>
+        <script src="{{ asset('js/dragscroll.js') }}"></script>
+        <script src="{{ asset('js/controls.js') }}"></script>
     {% endblock %}
