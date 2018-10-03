@@ -51,7 +51,7 @@
 
                 <div class="separator"></div>
 
-                <div class="thumb">
+                <div class="like">
                     <span class="fa fa-heart"></span>
                     12</div>
 
@@ -88,14 +88,71 @@
                 $.jInvertScroll(['.scroll']);
             }(jQuery));
 
-            {# $(document).ready(function () {
+            $(document).ready(function () {
                 $('html, body').animate({
                     scrollTop: 0
                 }, 200);
-            }); #}
-            //$(".starfield").starscroll(bit-mode,layers,stars,dimension,speed,colour,varience,animate);
+            });
+
+            // $(".starfield").starscroll(bit-mode,layers,stars,dimension,speed,colour,varience,animate);
+
+            /**
+            * like
+            */
+            $('a.like-button').on('click', function () {
+                $(this).toggleClass('liked');
+                var like = $(this).parents('.article').find('.like');
+                var likes = parseInt(like.text());
+                var diff = 1;
+                if ($(this).hasClass('liked')) {
+                    likes += 1;
+                    like.html('<span class="fa fa-heart violet"></span> ' + likes);
+                } else {
+                    likes -= 1;
+                    diff = -1;
+                    like.html('<span class="fa fa-heart"></span> ' + likes);
+                }
+                /*
+                $.ajax({
+                    url: "{{ path( 'add_like', {id : '1'}) }}",
+                    type: "POST",
+                    dataType: "text",
+                    data: {
+                        "diff": diff,
+                    },
+                    success: function (resp) {}
+                });
+                */
+            });
+
+            /**
+            * vote
+            */
+            $('.sondage .option input').on('click', function () {
+                var vote = $(this).parents('.option').find('.votes');
+                var votes = parseInt(vote.text().replace(/[^\d.]/g, ''));
+                var diff = 1;
+                if ($(this).is(':checked')) {
+                    votes += 1;
+                    vote.text('+ ' + votes);
+                } else {
+                    votes -= 1;
+                    diff = -1;
+                    vote.text('+ ' + votes);
+                }
+                /*
+                $.ajax({
+                    url: "{{ path( 'add_vote', {id : '1'}) }}",
+                    type: "POST",
+                    dataType: "text",
+                    data: {
+                        "diff": diff,
+                    },
+                    success: function (resp) {}
+                });
+                */
+            });
         </script>
         <script src="{{ asset('js/starscroll.js') }}"></script>
-        <script src="{{ asset('js/dragscroll.js') }}"></script>
         <script src="{{ asset('js/controls.js') }}"></script>
     {% endblock %}

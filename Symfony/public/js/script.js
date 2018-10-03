@@ -1,9 +1,5 @@
 $(document).ready(function () {
 
-    $('a.like-button').on('click', function() {
-        $(this).toggleClass('liked');
-      });
-
     /**
      * flashbag
      */
@@ -21,4 +17,8 @@ $(document).ready(function () {
             }, 600);
         }
     }
+
+    /**
+     * flashbag
+     */
 });
