@@ -127,7 +127,7 @@
                         </button>
                     </div>
                 </div>
-                                <div class="article">
+                <div class="article">
                     <div class="flex">
                         <div>
                             <div class="title">Titre</div>
@@ -183,7 +183,7 @@
                         </button>
                     </div>
                 </div>
-                                <div class="article">
+                <div class="article">
                     <div class="flex">
                         <div>
                             <div class="title">Titre</div>
@@ -247,6 +247,8 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="{{ asset('js/starscroll.js') }}"></script>
+    <script src="{{ asset('js/controls.js') }}"></script>
     <script type="text/javascript">
         (function ($) {
             $.jInvertScroll(['.scroll']);
@@ -261,8 +263,8 @@
         // $(".starfield").starscroll(bit-mode,layers,stars,dimension,speed,colour,varience,animate);
 
         /**
-            * like
-            */
+        * like
+        */
         $('a.like-button').on('click', function () {
             $(this).toggleClass('liked');
             var like = $(this).parents('.article').find('.like');
@@ -290,8 +292,8 @@
         });
 
         /**
-            * vote
-            */
+        * vote
+        */
         $('.sondage .option input').on('click', function () {
             var vote = $(this).parents('.option').find('.votes');
             var votes = parseInt(vote.text().replace(/[^\d.]/g, ''));
@@ -314,9 +316,41 @@
                     },
                     success: function (resp) {}
                 });
-                */
+            */
         });
+
+        /**
+        * infiniteScroll
+        */
+        //function infiniteScroll() {
+        var offset = 20;
+
+        $(window).data('ajaxready', true);
+
+        $('.wrapper').append('<div class="loader-wrapper"><div class="loader"><div class="ball"></div><div class="ball"></div><div class="ball"></div></div></div>');
+
+        var deviceAgent = navigator.userAgent.toLowerCase();
+        var agentID = deviceAgent.match(/(iphone|ipod|ipad)/);
+
+        $(window).scroll(function () {
+            if ($(window).data('ajaxready') == false)
+                return;
+            
+            if (($(window).scrollTop() + $(window).height()) == $(document).height() || agentID && ($(window).scrollTop() + $(window).height()) + 150 > $(document).height()) {
+                $(window).data('ajaxready', false);
+
+                $('.manual #loader').fadeIn(400);
+                $.get('/more/' + offset + '/', function (data) {
+                    if (data != '') {
+                        $('.manual #loader').before(data);
+                        $('.manual .hidden').fadeIn(400);
+                        offset += 20;
+                        $(window).data('ajaxready', true);
+                    }
+                    $('.manual #loader').fadeOut(400);
+                });
+            }
+        });
+        //};
     </script>
-    <script src="{{ asset('js/starscroll.js') }}"></script>
-    <script src="{{ asset('js/controls.js') }}"></script>
 {% endblock %}

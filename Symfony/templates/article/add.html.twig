@@ -4,20 +4,49 @@
 
 {% block stylesheets %}{% endblock %}
 
-{% block page_content %}
+{% form_theme form _self %}
 
-    <div>
-        {{ form_start(form) }}
-        {{ form_errors(form) }}
-
-        {{ form_row(form.titre) }}
-        {{ form_row(form.contenu) }}
-        {{ form_row(form.image) }}
-
-        {{ form_row(form._token) }}
-        {{ form_end(form, {'render_rest' : false}) }}
+{% block _article_image_widget %}
+    <div id="imageUploadForm" class="imageUploadForm">
+        <span class="helpText" id="helpText">Upload an image</span>
+        <input type='file' id="file" {{ block('widget_attributes') }} class="uploadButton" accept="image/*"/>
+        <div id="uploadedImg" class="uploadedImg">
+            <span class="unveil"></span>
+        </div>
+        <span class="pickFile">
+            <a href="#" class="pickFileButton">Pick file</a>
+        </span>
     </div>
+{% endblock %}
 
+{% block page_content %}
+    <div class="article-wrapper">
+        <div class="row">
+            <div class="col-md-12 article-header">
+                Nouvel article
+            </div>
+        </div>
+
+        <div class="article-form">
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
+
+            <div class="form-row">
+                {{ form_widget(form.titre) }}
+            </div>
+            <div class="form-row">
+                {{ form_widget(form.contenu) }}
+            </div>
+
+            {{ form_row(form.image, {'required': false}) }}
+            {{ form_widget(form.url, {'required': false}) }}
+
+            {{ form_widget(form.sondage) }}
+
+            {{ form_row(form._token) }}
+            {{ form_end(form, {'render_rest' : false}) }}
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}

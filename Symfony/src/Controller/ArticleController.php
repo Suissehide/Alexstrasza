@@ -16,6 +16,31 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends AbstractController
 {
     /**
+     * @Route("/add", name="article_add", methods="GET|POST")
+     */
+    public function add(Request $request) : Response
+    {
+        $article = new Article();
+        $form = $this->createForm(ArticleType::class, $article);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $article->setDate(new \DateTime(null, new \DateTimeZone('Europe/Paris')));
+            $article->setUtilisateur($this->getUser());
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
+
+            return $this->redirectToRoute('index');
+        }
+
+        return $this->render('article/add.html.twig', [
+            'article' => $article,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/", name="article_index", methods="GET")
      */
     public function index(ArticleRepository $articleRepository) : Response
@@ -33,6 +58,8 @@ class ArticleController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $article->setDate(new \DateTime(null, new \DateTimeZone('Europe/Paris')));
+            $article->setUtilisateur($this->getUser());
             $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();
@@ -86,29 +113,6 @@ class ArticleController extends AbstractController
         }
 
         return $this->redirectToRoute('article_index');
-    }
-
-    /**
-     * @Route("/add", name="article_add", methods="GET|POST")
-     */
-    public function add(Request $request) : Response
-    {
-        $article = new Article();
-        $form = $this->createForm(ArticleType::class, $article);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($article);
-            $em->flush();
-
-            return $this->redirectToRoute('index');
-        }
-
-        return $this->render('article/add.html.twig', [
-            'article' => $article,
-            'form' => $form->createView(),
-        ]);
     }
 
     /**

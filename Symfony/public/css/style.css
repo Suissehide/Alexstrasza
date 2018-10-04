@@ -275,8 +275,7 @@ input:-webkit-autofill {
 
 .manual {
     z-index: 50;
-    top: 150px;
-    width: 6000px;
+    top: 200px;
     height: 100%;
     /* display: flex;
     justify-content: center;
@@ -289,27 +288,24 @@ input:-webkit-autofill {
     align-items: center;
 }
 
-.manual>span>div {
+.manual .article {
     flex-shrink: 0;
     width: calc(100vw - 5rem);
     max-width: 500px;
-    margin: 0 3%;
+    margin: 0 5%;
     cursor: default;
     perspective: 1250px;
     transition: transform .8s ease;
-}
-
-.manual .article {
     background-color: #00000075;
     padding: 20px 30px;
     color: white;
 }
 
-.article:nth-child(2n + 2) {
+.article:nth-child(2n+2) {
     transform: translateY(10%);
 }
 
-.article:nth-child(3n + 3) {
+.article:nth-child(3n+3) {
     transform: translateY(-5%);
 }
 
@@ -351,16 +347,21 @@ input:-webkit-autofill {
     margin-right: 10px;
 }
 
-.manual .stuff {
-    width: 500px;
-    height: 100px;
-    background-repeat: no-repeat;
-    background-position: center center;
-    flex: 0 0 auto;
-}
-
-.zerg {
-    background-image: url("../gfx/1.png");
+.article-animation {
+    background: #ee3124;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    content: "";
+    z-index: 2;
+    -ms-transform-origin: 0 100%;
+    transform-origin: 0 100%;
+    -ms-transform: scale(0);
+    transform: scale(0);
+    transition: background-color 5ms linear .55s;
 }
 
 .mode {
@@ -435,8 +436,13 @@ input:-webkit-autofill {
     color: #878787;
 }
 
-/* Login / Register
+/* Login / Register / Article
 ================= */
+
+.article-wrapper {
+    color: #fff;
+    margin-top: 15%;
+}
 
 .login-wrapper {
     color: #fff;
@@ -455,7 +461,7 @@ input:-webkit-autofill {
     margin: 15px 0px 0px 10px;
 }
 
-.login-wrapper .login-header {
+.login-wrapper .login-header, .article-wrapper .article-header {
     color: #fff;
     margin: 30px 0;
     text-align: center;
@@ -463,12 +469,16 @@ input:-webkit-autofill {
     font-weight: 700;
 }
 
-.login-wrapper .login-form {
+.login-wrapper .login-form, .article-wrapper .article-form {
     width: 50%;
     margin: 0 auto;
     max-width: 400px;
     padding: 20px;
     background-color: #00000050;
+}
+
+.article-wrapper .article-form {
+    max-width: 800px;
 }
 
 .login-wrapper p {
@@ -483,7 +493,7 @@ input:-webkit-autofill {
     margin: 20px 10px;
 }
 
-.form-row input {
+.form-row input, .form-row textarea {
     width: 100%;
     background-color: transparent;
     border: none;
@@ -508,6 +518,215 @@ input:-webkit-autofill {
     border: none;
     border-bottom: palevioletred 1px solid;
     box-shadow: none;
+}
+
+/* Upload
+================= */
+
+.imageUploadForm {
+    background: transparent;
+    height: 200px;
+    width: 100%;
+    position: relative;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: flex-end;
+    align-items: flex-end;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+.imageUploadForm .helpText {
+    color: white;
+    display: block;
+    position: absolute;
+    top: 2%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 30px;
+}
+
+.imageUploadForm .helpText:after {
+    content: '\f067';
+    font-family: 'FontAwesome';
+    font-size: 150%;
+    color: rgba(255, 255, 255, 0.5);
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    margin: 4% auto auto auto;
+    width: 50%;
+    height: 50%;
+    border: 6px dashed rgba(255, 255, 255, 0.5);
+}
+
+.imageUploadForm .pickFile {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    background: white;
+    height: 25%;
+    width: 100%;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.imageUploadForm .pickFileButton {
+    display: inline-block;
+    padding: 0.7em 2em;
+    color: white;
+    background: #FB92AE;
+    text-decoration: none;
+}
+
+.imageUploadForm .pickFileButton:hover {
+    text-decoration: none;
+}
+
+.imageUploadForm .uploadButton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.imageUploadForm.loading .helpText {
+    font-size: 0;
+    top: 7%;
+}
+
+.imageUploadForm.loading .helpText:before {
+    font-size: 30px;
+    content: 'Uploading...';
+}
+
+.imageUploadForm.loading .helpText:after {
+    display: none;
+}
+
+.imageUploadForm.loading .uploadedImg {
+    position: absolute;
+    bottom: 12.5%;
+    left: 12.5%;
+    width: 75%;
+    height: 65%;
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    border: 4px solid white;
+    -moz-transition: opacity ease-out;
+    -o-transition: opacity ease-out;
+    -webkit-transition: opacity ease-out;
+    transition: opacity ease-out;
+}
+
+.imageUploadForm.loading .unveil {
+    position: absolute;
+    background: #6E95F7;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    -moz-animation: toTop 4s forwards;
+    -webkit-animation: toTop 4s forwards;
+    animation: toTop 4s forwards;
+}
+
+.imageUploadForm.loading .unveil:after {
+    content: '';
+    position: absolute;
+    left: -3%;
+    bottom: 0;
+    height: 10px;
+    width: 106%;
+    background: #FFD16E;
+    border-radius: 5px;
+}
+
+.imageUploadForm.loading .pickFile, .imageUploadForm.loading .uploadButton {
+    display: none;
+}
+
+.imageUploadForm.loading.loaded {
+    height: 200px;
+}
+
+.imageUploadForm.loading.loaded .uploadedImg {
+    opacity: 0;
+}
+
+.imageUploadForm.loading.loaded .helpText:before {
+    content: 'Upload Complete!';
+}
+
+.imageUploadForm.loading.loaded .helpText:after {
+    display: block;
+    opacity: 0;
+    font-size: 0;
+    line-height: 100px;
+    -moz-animation: fadeIn 0.4s forwards;
+    -webkit-animation: fadeIn 0.4s forwards;
+    animation: fadeIn 0.4s forwards;
+    content: '\f058';
+    color: white;
+    margin-top: 2%;
+    border-width: 0;
+}
+
+@-moz-keyframes toTop {
+    to {
+        height: 0;
+    }
+}
+
+@-webkit-keyframes toTop {
+    to {
+        height: 0;
+    }
+}
+
+@keyframes toTop {
+    to {
+        height: 0;
+    }
+}
+
+@-moz-keyframes fadeIn {
+    to {
+        opacity: 1;
+        font-size: 90px;
+    }
+}
+
+@-webkit-keyframes fadeIn {
+    to {
+        opacity: 1;
+        font-size: 90px;
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+        font-size: 90px;
+    }
 }
 
 /* Check-Box
@@ -635,6 +854,119 @@ input:-webkit-autofill {
 .closebtn:hover {
     color: black;
 }
+
+/* Loader
+================= */
+
+.loader {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 24px;
+    /* border-top: 8px solid palevioletred;
+    border-bottom: 8px solid palevioletred; */
+    overflow: hidden;
+}
+
+.loader .ball {
+    position: absolute;
+    width: 8px;
+    height: 0;
+    background: palevioletred;
+    margin: 0;
+}
+
+.loader .ball:nth-child(1) {
+    -webkit-animation: ball 2s ease-in-out infinite;
+    animation: ball 2s ease-in-out infinite;
+    left: 0;
+}
+
+.loader .ball:nth-child(2) {
+    -webkit-animation: ball 2s ease-in-out .1s infinite;
+    animation: ball 2s ease-in-out .1s infinite;
+    left: 8px;
+}
+
+.loader .ball:nth-child(3) {
+    -webkit-animation: ball 2s ease-in-out .2s infinite;
+    animation: ball 2s ease-in-out .2s infinite;
+    left: 16px;
+}
+
+@-webkit-keyframes ball {
+    0% {
+        top: 0;
+        height: 0;
+    }
+    25% {
+        top: 0;
+        height: 100vh;
+    }
+    50% {
+        top: 100vh;
+        height: 0;
+    }
+    75% {
+        top: 0;
+        height: 100vh;
+    }
+    100% {
+        top: 0;
+        height: 0;
+    }
+}
+
+@keyframes ball {
+    0% {
+        top: 0;
+        height: 0;
+    }
+    25% {
+        top: 0;
+        height: 100vh;
+    }
+    50% {
+        top: 100vh;
+        height: 0;
+    }
+    75% {
+        top: 0;
+        height: 100vh;
+    }
+    100% {
+        top: 0;
+        height: 0;
+    }
+}
+
+/* .loader {
+    display: inline-block;
+    width: 64px;
+    height: 64px;
+}
+
+.loader:after {
+    content: " ";
+    display: block;
+    width: 46px;
+    height: 46px;
+    margin: 1px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    border-color: #fff transparent palevioletred transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+}
+
+@keyframes lds-dual-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+} */
 
 /* Radio / Checkbox
 ================= */

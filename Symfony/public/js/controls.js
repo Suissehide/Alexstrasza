@@ -24,6 +24,12 @@
         window.obj = {
             global: 'manual'
         }
+        var width = 0;
+        $('.article').each(function () {
+            width += $(this).outerWidth(true);
+        });
+        $('.manual').css('width', width + 750);
+
         $('html').css({
             'background-image': 'radial-gradient(rgba(194,43,87,.25),rgba(194,43,87,.05))'
         });
