@@ -177,8 +177,13 @@ input:-webkit-autofill {
     text-align: left;
 }
 
+.menu-item:focus {
+    color: white;
+    background-color: palevioletred;
+}
+
 .menu-item:hover {
-    background: white;
+    background-color: white;
     color: palevioletred;
 }
 
@@ -250,15 +255,16 @@ input:-webkit-autofill {
 .logo {
     position: fixed;
     top: 25px;
-    right: -5px;
-    background: transparent url("../gfx/logo.png") no-repeat center;
+    right: 25px;
+    background: transparent url("../gfx/logo-white.png") no-repeat center;
     background-size: contain;
     height: 100px;
-    width: 300px;
+    width: 250px;
 }
 
 /* Index
 ================= */
+
 .wrapper {
     height: 100%;
     bottom: 0;
@@ -268,7 +274,6 @@ input:-webkit-autofill {
 }
 
 .manual {
-    cursor: grab;
     z-index: 50;
     top: 150px;
     width: 6000px;
@@ -278,16 +283,34 @@ input:-webkit-autofill {
     align-items: center; */
 }
 
-.manual .article {
-    left: 1450px;
-    top: 0px;
+.manual>span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.manual>span>div {
+    flex-shrink: 0;
+    width: calc(100vw - 5rem);
     max-width: 500px;
-    padding: 20px;
+    margin: 0 3%;
+    cursor: default;
+    perspective: 1250px;
+    transition: transform .8s ease;
+}
+
+.manual .article {
     background-color: #00000075;
     padding: 20px 30px;
     color: white;
-    position: absolute;
-    cursor: default;
+}
+
+.article:nth-child(2n + 2) {
+    transform: translateY(10%);
+}
+
+.article:nth-child(3n + 3) {
+    transform: translateY(-5%);
 }
 
 .article .flex {

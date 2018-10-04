@@ -5,11 +5,11 @@
 */
 (function ($) {
 
-    $.fn.starscroll = function (bit, fields, num, size, smooth, colour, mix, anim) { // 8bit mode 
+    $.fn.starscroll = function (bit, fields, num, size, smooth, colour, mix, anim, type) { // 8bit mode 
 
         var el = $(this),
             mobile = isMobile.any(),
-            process = new Plugin(el, mobile, bit, fields, num, size, smooth, colour, mix, anim);
+            process = new Plugin(el, mobile, bit, fields, num, size, smooth, colour, mix, anim, type);
 
         window.addEventListener('scroll', function () { process.parallax(); }, false);
         if (anim && !mobile) {
@@ -22,7 +22,7 @@
 
     }
 
-    var Plugin = function (me, mobile, bit, levels, density, dimension, smooth, colour, mix, anim) {
+    var Plugin = function (me, mobile, bit, levels, density, dimension, smooth, colour, mix, anim, type) {
 
         this.el = me;
         this.levels = (levels > 10) ? 10 : levels;
@@ -35,6 +35,7 @@
         this.time = 0;
         this.anim = anim;
         this.smooth = (smooth > 5 || true) ? 5 : smooth;
+        this.type = type;
 
         var width, ww = $(window).width(),
             height, wh = $(window).height();
@@ -190,7 +191,9 @@
             
             $el.css({ 'background-position': speed + 'px 0' })
         }
-        $('html').css({ 'background-position': speed + 'px ' + (-0.66 * speed) + 'px' })
+        if (this.type === "manual") {
+            $('html').css({ 'background-position': speed + 'px ' + (-0.666 * speed) + 'px' })
+        }
     }
     Plugin.prototype.buildDOMels = function (DOM, i) {
 

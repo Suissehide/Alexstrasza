@@ -6,12 +6,20 @@
 
 {% block page_content %}
 
+    <div>
+        {{ form_start(form) }}
+        {{ form_errors(form) }}
 
+        {{ form_row(form.titre) }}
+        {{ form_row(form.contenu) }}
+        {{ form_row(form.image) }}
+
+        {{ form_row(form._token) }}
+        {{ form_end(form, {'render_rest' : false}) }}
+    </div>
 
 {% endblock %}
- 
-{% block javascripts %}
-    <script type="text/javascript">
 
-    </script>
+{% block javascripts %}
+    <script type="text/javascript"></script>
 {% endblock %}
