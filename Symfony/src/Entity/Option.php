@@ -28,6 +28,12 @@ class Option
      */
     private $vote;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Sondage", inversedBy="options")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $sondage;
+
     public function __construct()
     {
         $this->vote = new ArrayCollection();
@@ -72,6 +78,18 @@ class Option
         if ($this->vote->contains($vote)) {
             $this->vote->removeElement($vote);
         }
+
+        return $this;
+    }
+
+    public function getSondage(): ?Sondage
+    {
+        return $this->sondage;
+    }
+
+    public function setSondage(?Sondage $sondage): self
+    {
+        $this->sondage = $sondage;
 
         return $this;
     }

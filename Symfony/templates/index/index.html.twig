@@ -251,7 +251,11 @@
     <script src="{{ asset('js/controls.js') }}"></script>
     <script type="text/javascript">
         (function ($) {
-            $.jInvertScroll(['.scroll']);
+            $.jInvertScroll(['.scroll'], {
+                width: 'auto',
+                height: 'auto',
+                onScroll: function (percent) {}
+            });
         }(jQuery));
 
         $(document).ready(function () {
@@ -333,14 +337,16 @@
         var agentID = deviceAgent.match(/(iphone|ipod|ipad)/);
 
         $(window).scroll(function () {
-            if ($(window).data('ajaxready') == false)
+            if ($(window).data('ajaxready') == false) 
                 return;
             
             if (($(window).scrollTop() + $(window).height()) == $(document).height() || agentID && ($(window).scrollTop() + $(window).height()) + 150 > $(document).height()) {
                 $(window).data('ajaxready', false);
 
                 $('.manual #loader').fadeIn(400);
-                $.get('/more/' + offset + '/', function (data) {
+                var url = "{{ path('article_more', {'offset' : 'offset_val'}) }}";
+                url = url.replace('offset_val', offset);
+                $.get(url, function (data) {
                     if (data != '') {
                         $('.manual #loader').before(data);
                         $('.manual .hidden').fadeIn(400);

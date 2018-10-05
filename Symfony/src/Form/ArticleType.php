@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use App\Form\SondageType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,13 +32,17 @@ class ArticleType extends AbstractType
                 ),
             ))
             ->add('image', FileType::class, array(
-				'label' => false,
+                'label' => false,
+                'multiple' => true,
                 'data_class' => null,
             ))
             ->add('sondage', EntityType::class, array(
                 'class' => 'App\Entity\Sondage',
                 'choice_label' => 'Sondage',
                 'multiple' => false,
+                "attr" => array(
+                    'class' => "hidden"
+                ),
             ))
 
             ->add('url', HiddenType::class, array(

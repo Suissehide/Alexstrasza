@@ -19,6 +19,15 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+    public function findByOffset($offset, $max)
+    {
+        return $this->createQueryBuilder('a')
+            ->setFirstResult($offset)
+            ->setMaxResults($max)
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Article[] Returns an array of Article objects
 //     */
@@ -34,7 +43,7 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    */
+     */
 
     /*
     public function findOneBySomeField($value): ?Article
@@ -46,5 +55,5 @@ class ArticleRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
-    */
+     */
 }

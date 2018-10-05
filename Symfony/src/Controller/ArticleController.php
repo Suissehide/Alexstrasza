@@ -3,12 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Article;
+use App\Entity\Sondage;
 use App\Form\ArticleType;
+use App\Form\SondageType;
 use App\Repository\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use App\Service\FileUploader;
 
 /**
  * @Route("/article")
@@ -20,6 +24,8 @@ class ArticleController extends AbstractController
      */
     public function add(Request $request) : Response
     {
+        $formSondage = $this->createForm(SondageType::class, new Sondage());
+
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -37,6 +43,7 @@ class ArticleController extends AbstractController
         return $this->render('article/add.html.twig', [
             'article' => $article,
             'form' => $form->createView(),
+            'formSondage' => $formSondage->createView(),
         ]);
     }
 
@@ -120,5 +127,27 @@ class ArticleController extends AbstractController
      */
     public function add_like(Request $request) : Response
     {
+    }
+
+    /**
+     * @Route("/more/{offset}", name="article_more", methods="GET")
+     */
+    public function article_more(Request $request, ArticleRepository $articleRepository, $offset) : Response
+    {
+        if ($request->isXmlHttpRequest()) {
+            $max = 2;
+            $articles = $articleRepository->findByOffset($offset, $max);
+
+            $rows = array();
+            foreach ($articles as $article) {
+                $row = [
+                    "id" => $article->getId(),
+                ];
+                array_push($rows, $row);
+            }
+
+            return new JsonResponse($rows);
+        }
+        throw new NotFoundHttpException('Erreur ajax');
     }
 }

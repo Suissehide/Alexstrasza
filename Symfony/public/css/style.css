@@ -29,6 +29,7 @@ html {
     height: 100%;
     margin: 0;
     overflow: auto;
+    font-family: "Montserrat", Helvetica, Arial, sans-serif;
     background-image: radial-gradient(rgba(96, 0, 255, 0.25), rgba(96, 0, 255, 0.05));
     background: -webkit-radial-gradient(circle, rgba(96, 0, 255, 0.25), rgba(96, 0, 255, 0.05)) #111;
     background-image: -moz-radial-gradient(50% 50%, circle, rgba(96, 0, 255, 0.25) 50%, rgba(96, 0, 255, 0.05) 100%);
@@ -441,7 +442,7 @@ input:-webkit-autofill {
 
 .article-wrapper {
     color: #fff;
-    margin-top: 15%;
+    margin-top: 10%;
 }
 
 .login-wrapper {
@@ -449,8 +450,19 @@ input:-webkit-autofill {
     margin-top: 5%;
 }
 
+.article-form {
+    text-align: center;
+}
+
+.article-wrapper .submit-btn {
+    margin: 30px auto 10px auto;
+    width: 60%;
+    border-radius: 50px;
+}
+
 .login-wrapper .submit-btn {
     margin: 30px 10px 10px 10px;
+    border-radius: 50px;
 }
 
 .login-wrapper .form-check label {
@@ -493,10 +505,20 @@ input:-webkit-autofill {
     margin: 20px 10px;
 }
 
-.form-row input, .form-row textarea {
+.login-wrapper input, .login-wrapper textarea, .article-wrapper input, .article-wrapper textarea {
     width: 100%;
     background-color: transparent;
     border: none;
+    border-bottom: palevioletred 1px solid;
+}
+
+.login-wrapper input::placeholder, .login-wrapper textarea::placeholder, .article-wrapper input::placeholder, .article-wrapper textarea::placeholder {
+    color: dimgray;
+}
+
+.article-wrapper input:focus {
+    -webkit-box-shadow: none;
+    box-shadow: none;
     border-bottom: palevioletred 1px solid;
 }
 
@@ -520,213 +542,148 @@ input:-webkit-autofill {
     box-shadow: none;
 }
 
+.sondage-row {
+    text-align: left;
+    display: flex;
+    cursor: pointer;
+}
+
+.sondage-row .btn-round {
+    display: inline-block;
+    position: relative;
+    background-color: palevioletred;
+    color: white;
+    height: 45px;
+    width: 45px;
+    font-size: 18px;
+    border: 2px solid palevioletred;
+    border-radius: 50%;
+}
+
+.sondage-row>p {
+    display: inline-block;
+    margin: auto 10px;
+    color: white;
+    top: 0;
+}
+
+.sondage-row .btn-round i {
+    position: absolute;
+    top: 13px;
+    left: 13px;
+}
+
+.sondage-row:hover .btn-round {
+    background-color: transparent;
+}
+
 /* Upload
 ================= */
 
-.imageUploadForm {
-    background: transparent;
-    height: 200px;
+#upload {
+    text-align: left;
     width: 100%;
-    position: relative;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-align-items: flex-end;
-    align-items: flex-end;
-    -webkit-justify-content: center;
-    justify-content: center;
-    -webkit-flex-wrap: wrap;
-    flex-wrap: wrap;
+    padding: 15px 30px;
+    border-radius: 3px;
+    margin: 0px auto;
 }
 
-.imageUploadForm .helpText {
-    color: white;
-    display: block;
-    position: absolute;
-    top: 2%;
-    left: 0;
-    width: 100%;
-    height: 100%;
+#drop {
+    padding: 40px 50px;
+    margin-bottom: 30px;
+    border: 20px solid rgba(0, 0, 0, 0);
+    border-radius: 3px;
+    border-image: url('../gfx/border-image.png') 25 repeat;
     text-align: center;
-    font-size: 30px;
+    color: dimgray;
 }
 
-.imageUploadForm .helpText:after {
-    content: '\f067';
-    font-family: 'FontAwesome';
-    font-size: 150%;
-    color: rgba(255, 255, 255, 0.5);
-    display: -webkit-flex;
-    display: flex;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-    margin: 4% auto auto auto;
-    width: 50%;
-    height: 50%;
-    border: 6px dashed rgba(255, 255, 255, 0.5);
-}
-
-.imageUploadForm .pickFile {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    display: block;
-    background: white;
-    height: 25%;
-    width: 100%;
-    display: -webkit-flex;
-    display: flex;
-    -webkit-align-items: center;
-    align-items: center;
-    -webkit-justify-content: center;
-    justify-content: center;
-}
-
-.imageUploadForm .pickFileButton {
-    display: inline-block;
-    padding: 0.7em 2em;
-    color: white;
-    background: #FB92AE;
-    text-decoration: none;
-}
-
-.imageUploadForm .pickFileButton:hover {
-    text-decoration: none;
-}
-
-.imageUploadForm .uploadButton {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    opacity: 0;
+#drop a {
+    background-color: palevioletred;
+    border: palevioletred 2px solid;
+    padding: 12px 26px;
+    color: #fff;
+    font-size: 14px;
+    border-radius: 2px;
     cursor: pointer;
-    z-index: 10;
+    display: block;
+    margin-top: 12px;
+    line-height: 1;
+    border-radius: 50px;
 }
 
-.imageUploadForm.loading .helpText {
-    font-size: 0;
-    top: 7%;
+#drop a:hover {
+    background-color: transparent;
 }
 
-.imageUploadForm.loading .helpText:before {
-    font-size: 30px;
-    content: 'Uploading...';
-}
-
-.imageUploadForm.loading .helpText:after {
+#drop input {
     display: none;
 }
 
-.imageUploadForm.loading .uploadedImg {
-    position: absolute;
-    bottom: 12.5%;
-    left: 12.5%;
-    width: 75%;
-    height: 65%;
-    background-repeat: no-repeat;
-    background-position: center center;
-    background-size: cover;
-    border: 4px solid white;
-    -moz-transition: opacity ease-out;
-    -o-transition: opacity ease-out;
-    -webkit-transition: opacity ease-out;
-    transition: opacity ease-out;
+#upload ul {
+    list-style: none;
+    margin: 0 -30px;
+    border-top: 1px solid palevioletred;
+    border-bottom: 1px solid palevioletred;
 }
 
-.imageUploadForm.loading .unveil {
-    position: absolute;
-    background: #6E95F7;
-    display: block;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    -moz-animation: toTop 4s forwards;
-    -webkit-animation: toTop 4s forwards;
-    animation: toTop 4s forwards;
+#upload ul li {
+    border-top: 1px solid palevioletred;
+    border-bottom: 1px solid palevioletred;
+    height: 62px;
+    position: relative;
 }
 
-.imageUploadForm.loading .unveil:after {
-    content: '';
-    position: absolute;
-    left: -3%;
-    bottom: 0;
-    height: 10px;
-    width: 106%;
-    background: #FFD16E;
-    border-radius: 5px;
-}
-
-.imageUploadForm.loading .pickFile, .imageUploadForm.loading .uploadButton {
+#upload ul li input {
     display: none;
 }
 
-.imageUploadForm.loading.loaded {
-    height: 200px;
+#upload ul li p {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    color: #EEE;
+    font-weight: bold;
+    position: absolute;
+    top: 11px;
+    left: 100px;
+    width: 63%;
 }
 
-.imageUploadForm.loading.loaded .uploadedImg {
-    opacity: 0;
-}
-
-.imageUploadForm.loading.loaded .helpText:before {
-    content: 'Upload Complete!';
-}
-
-.imageUploadForm.loading.loaded .helpText:after {
+#upload ul li i {
+    font-weight: normal;
+    font-style: normal;
+    color: #7f7f7f;
     display: block;
-    opacity: 0;
-    font-size: 0;
-    line-height: 100px;
-    -moz-animation: fadeIn 0.4s forwards;
-    -webkit-animation: fadeIn 0.4s forwards;
-    animation: fadeIn 0.4s forwards;
-    content: '\f058';
-    color: white;
-    margin-top: 2%;
-    border-width: 0;
 }
 
-@-moz-keyframes toTop {
-    to {
-        height: 0;
-    }
+#upload ul li canvas {
+    top: 15px;
+    left: 32px;
+    position: absolute;
 }
 
-@-webkit-keyframes toTop {
-    to {
-        height: 0;
-    }
+#upload ul li span {
+    width: 15px;
+    height: 16px;
+    background: url('../gfx/icons.png') no-repeat;
+    background-position: 0 -12px;
+    position: absolute;
+    top: 22px;
+    right: 32px;
+    cursor: pointer;
 }
 
-@keyframes toTop {
-    to {
-        height: 0;
-    }
+#upload ul li.working span {
+    background-position: 0 3px;
 }
 
-@-moz-keyframes fadeIn {
-    to {
-        opacity: 1;
-        font-size: 90px;
-    }
+#upload ul li.error span {
+    background-position: 0 -12px;
 }
 
-@-webkit-keyframes fadeIn {
-    to {
-        opacity: 1;
-        font-size: 90px;
-    }
-}
-
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-        font-size: 90px;
-    }
+#upload ul li.error p {
+    color: red;
 }
 
 /* Check-Box

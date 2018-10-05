@@ -33,6 +33,11 @@ class Article
      */
     private $date;
 
+    // /**
+    //  * @ORM\Column(type="array")
+    //  */
+    // private $paths;
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
@@ -59,65 +64,65 @@ class Article
         $this->thumb = new ArrayCollection();
     }
 
-    public function getId(): ?int
+    public function getId() : ? int
     {
         return $this->id;
     }
 
-    public function getTitre(): ?string
+    public function getTitre() : ? string
     {
         return $this->titre;
     }
 
-    public function setTitre(?string $titre): self
+    public function setTitre(? string $titre) : self
     {
         $this->titre = $titre;
 
         return $this;
     }
 
-    public function getContenu(): ?string
+    public function getContenu() : ? string
     {
         return $this->contenu;
     }
 
-    public function setContenu(string $contenu): self
+    public function setContenu(string $contenu) : self
     {
         $this->contenu = $contenu;
 
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getDate() : ? \DateTimeInterface
     {
         return $this->date;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function setDate(\DateTimeInterface $date) : self
     {
         $this->date = $date;
 
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImage() : ? string
     {
         return $this->image;
     }
 
-    public function setImage(?string $image): self
+    public function setImage(? string $image) : self
     {
         $this->image = $image;
 
         return $this;
     }
 
-    public function getUtilisateur(): ?Utilisateur
+    public function getUtilisateur() : ? Utilisateur
     {
         return $this->utilisateur;
     }
 
-    public function setUtilisateur(?Utilisateur $utilisateur): self
+    public function setUtilisateur(? Utilisateur $utilisateur) : self
     {
         $this->utilisateur = $utilisateur;
 
@@ -127,12 +132,12 @@ class Article
     /**
      * @return Collection|Utilisateur[]
      */
-    public function getThumb(): Collection
+    public function getThumb() : Collection
     {
         return $this->thumb;
     }
 
-    public function addThumb(Utilisateur $thumb): self
+    public function addThumb(Utilisateur $thumb) : self
     {
         if (!$this->thumb->contains($thumb)) {
             $this->thumb[] = $thumb;
@@ -142,7 +147,7 @@ class Article
         return $this;
     }
 
-    public function removeThumb(Utilisateur $thumb): self
+    public function removeThumb(Utilisateur $thumb) : self
     {
         if ($this->thumb->contains($thumb)) {
             $this->thumb->removeElement($thumb);
@@ -155,12 +160,12 @@ class Article
         return $this;
     }
 
-    public function getSondage(): ?Sondage
+    public function getSondage() : ? Sondage
     {
         return $this->sondage;
     }
 
-    public function setSondage(?Sondage $sondage): self
+    public function setSondage(? Sondage $sondage) : self
     {
         $this->sondage = $sondage;
 
