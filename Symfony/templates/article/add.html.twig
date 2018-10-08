@@ -9,9 +9,11 @@
 {% block _article_image_widget %}
     <div id="upload" method="post" action="upload.php" enctype="multipart/form-data">
         <div id="drop">
-            Lâcher/Déposer une image
+            Glisser/déposer une image
 
-            <a>Charger</a>
+            <a>
+                <span class="fa fa-upload"></span>
+                Charger</a>
             <input type="file" name="upl" {{ block('widget_attributes') }} multiple="multiple"/>
         </div>
         <ul></ul>
@@ -40,7 +42,7 @@
             {{ form_row(form.image, {'required': false}) }}
             {{ form_widget(form.url, {'required': false}) }}
 
-            <a class="sondage-row" data-toggle="modal" href="#add-sondage">
+            <a class="sondage-row" data-toggle="modal" href="#addSondage">
                 <div class="btn-round">
                     <i class="fa fa-plus"></i>
                 </div>
@@ -57,7 +59,7 @@
         </div>
     </div>
 
-    <div class="modal fade" id="add-sondage" tabindex="-1" role="dialog" aria-labelledby="modalSondage" aria-hidden="true">
+    <div class="modal fade" id="addSondage" tabindex="-1" role="dialog" aria-labelledby="modalSondage" aria-hidden="true">
         <div class="modal-dialog">
             <!-- Modal content-->
             <div class="modal-content">
@@ -65,7 +67,8 @@
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title">
                         <span class="glyphicon glyphicon-warning"></span>
-                        Confirmation de suppression</h4>
+                        Sondage
+                    </h4>
                 </div>
                 <div class="modal-body">
                     {{ form_start(formSondage) }}
@@ -73,14 +76,16 @@
 
                     {{ form_widget(formSondage.titre) }}
 
+                    <ul class="options" data-prototype="{{ form_widget(formSondage.options.vars.prototype)|e('html_attr') }}"></ul>
+
                     {{ form_row(formSondage._token) }}
                     {{ form_end(formSondage, {'render_rest' : false}) }}
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-default pull-left" data-dismiss="modal">
+                    <button type="submit" class="btn button-danger pull-left" data-dismiss="modal">
                         <span class="glyphicon glyphicon-remove"></span>
                         Annuler</button>
-                    <a href="#" id="submit" class="btn button-danger success">Ajouter</a>
+                    <button id="submit" class="btn button-default pull-right success">Ajouter</button>
                 </div>
             </div>
         </div>
@@ -93,9 +98,30 @@
     <script src="{{ asset('js/jquery.iframe-transport.js') }}"></script>
     <script src="{{ asset('js/jquery.fileupload.js') }}"></script>
     <script type="text/javascript">
-        /**
-		* Upload
-		*/
+
+        /* Sondage Option
+	    ================= */
+        var $addTagLink = $('.card-add');
+        var $collectionHolder = $('ul.options');
+        $collectionHolder.data('index', $collectionHolder.find(':input').length);
+
+        $addTagLink.on('click', function (e) {
+            e.preventDefault();
+            addTagForm($collectionHolder);
+        });
+
+        function addTagForm($collectionHolder) {
+            var prototype = $collectionHolder.data('prototype');
+            var index = $collectionHolder.data('index');
+            var newForm = prototype.replace(/__name__/g, index);
+            $collectionHolder.data('index', index + 1);
+            var $newFormLi = $('<li class="card"></li>').append(newForm);
+            $newFormLi.append('<a class="pull-left btn btn-danger remove-tag">Supprimer</a>');
+            $collectionHolder.prepend($newFormLi);
+        }
+
+        /* Upload
+	    ================= */
         $(function () {
 
             var ul = $('#upload ul');

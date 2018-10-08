@@ -437,15 +437,36 @@ input:-webkit-autofill {
     color: #878787;
 }
 
+.button-default {
+    color: white;
+    background: palevioletred;
+    border-color: palevioletred;
+}
+
+.button-default:hover {
+    color: palevioletred;
+    background: transparent;
+    border-color: palevioletred;
+}
+
+
+.button-danger {
+    color: red;
+    background: transparent;
+    border-color: red;
+}
+
+.button-danger:hover {
+    color: white;
+    background: red;
+    border-color: red;
+}
+
+
 /* Login / Register / Article
 ================= */
 
-.article-wrapper {
-    color: #fff;
-    margin-top: 10%;
-}
-
-.login-wrapper {
+.login-wrapper,.article-wrapper {
     color: #fff;
     margin-top: 5%;
 }
@@ -607,9 +628,10 @@ input:-webkit-autofill {
     border-radius: 2px;
     cursor: pointer;
     display: block;
-    margin-top: 12px;
     line-height: 1;
     border-radius: 50px;
+    width: 60%;
+    margin: 10px auto;
 }
 
 #drop a:hover {
@@ -684,6 +706,44 @@ input:-webkit-autofill {
 
 #upload ul li.error p {
     color: red;
+}
+
+/* Modal
+================= */
+
+.modal-header, .modal h4, .modal .close {
+    background-color: palevioletred;
+    color: white !important;
+    text-align: center;
+    font-size: 30px;
+}
+
+.modal-header {
+    padding: 35px 50px;
+}
+
+.modal-lg {
+    width: 85%;
+}
+
+.modal-md {
+    width: 70%;
+}
+
+.modal-footer {
+    background-color: #f9f9f9;
+}
+
+.modal-footer, .modal-header {
+    border-radius: 5px;
+}
+
+.modal .btn-block-md {
+    width: 49.5%;
+}
+
+.modal p {
+    font-size: 18px;
 }
 
 /* Check-Box
