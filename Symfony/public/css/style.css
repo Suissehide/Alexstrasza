@@ -449,7 +449,6 @@ input:-webkit-autofill {
     border-color: palevioletred;
 }
 
-
 .button-danger {
     color: red;
     background: transparent;
@@ -462,11 +461,10 @@ input:-webkit-autofill {
     border-color: red;
 }
 
-
 /* Login / Register / Article
 ================= */
 
-.login-wrapper,.article-wrapper {
+.login-wrapper, .article-wrapper {
     color: #fff;
     margin-top: 5%;
 }
@@ -526,14 +524,16 @@ input:-webkit-autofill {
     margin: 20px 10px;
 }
 
-.login-wrapper input, .login-wrapper textarea, .article-wrapper input, .article-wrapper textarea {
+.login-wrapper input, .login-wrapper textarea, .article-wrapper input, .article-wrapper textarea, .modal input {
     width: 100%;
     background-color: transparent;
     border: none;
+    border-radius: 0;
+    box-shadow: none;
     border-bottom: palevioletred 1px solid;
 }
 
-.login-wrapper input::placeholder, .login-wrapper textarea::placeholder, .article-wrapper input::placeholder, .article-wrapper textarea::placeholder {
+.login-wrapper input::placeholder, .login-wrapper textarea::placeholder, .article-wrapper input::placeholder, .article-wrapper textarea::placeholder, .modal input::placeholder {
     color: dimgray;
 }
 
@@ -557,7 +557,7 @@ input:-webkit-autofill {
     color: #fff;
 }
 
-.form-row .form-control:focus {
+.form-row .form-control:focus, .modal .form-control:focus {
     border: none;
     border-bottom: palevioletred 1px solid;
     box-shadow: none;
@@ -596,6 +596,30 @@ input:-webkit-autofill {
 
 .sondage-row:hover .btn-round {
     background-color: transparent;
+}
+
+.list-wrapper {
+    margin-top: 30px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    max-height: 600px;
+}
+
+.option-add>p {
+    color: black;
+}
+
+.option-add:hover .btn-round {
+    color: palevioletred;
+}
+
+.card {
+    text-align: left;
+    display: flex;
+}
+
+.card>* {
+    display: inline-block;
 }
 
 /* Upload
@@ -740,10 +764,6 @@ input:-webkit-autofill {
 
 .modal .btn-block-md {
     width: 49.5%;
-}
-
-.modal p {
-    font-size: 18px;
 }
 
 /* Check-Box
@@ -1385,4 +1405,34 @@ input:-webkit-autofill {
         -webkit-transform: translate(2px, -18px) rotate(-25deg);
         transform: translate(2px, -18px) rotate(-25deg);
     }
+}
+
+/* ScrollBar
+================= */
+
+.scrollbar {
+    scrollbar-base-color: palevioletred;
+    scrollbar-face-color: rgb(200, 100, 135);
+    /* scrollbar-3dlight-color: #cc0000; */
+    /* scrollbar-highlight-color: #cc0000; */
+    scrollbar-track-color: white;
+    scrollbar-arrow-color: rgb(200, 100, 135);
+    /* scrollbar-shadow-color: rgba(0, 0, 0, 0.08); */
+}
+
+.scrollbar::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background-color: white;
+}
+
+.scrollbar::-webkit-scrollbar {
+    width: 12px;
+    background-color: white;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
+    background-color: white;
 }

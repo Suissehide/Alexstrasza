@@ -76,7 +76,16 @@
 
                     {{ form_widget(formSondage.titre) }}
 
-                    <ul class="options" data-prototype="{{ form_widget(formSondage.options.vars.prototype)|e('html_attr') }}"></ul>
+                    <div class="scrollbar list-wrapper">
+                        <ul class="options" data-prototype="{{ form_widget(formSondage.options.vars.prototype)|e('html_attr') }}"></ul>
+                    </div>
+                    <a class="sondage-row option-add">
+                        <div class="btn-round">
+                            <i class="fa fa-plus"></i>
+                        </div>
+                        <p>
+                            Ajouter une option</p>
+                    </a>
 
                     {{ form_row(formSondage._token) }}
                     {{ form_end(formSondage, {'render_rest' : false}) }}
@@ -101,7 +110,7 @@
 
         /* Sondage Option
 	    ================= */
-        var $addTagLink = $('.card-add');
+        var $addTagLink = $('.option-add');
         var $collectionHolder = $('ul.options');
         $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
@@ -116,9 +125,15 @@
             var newForm = prototype.replace(/__name__/g, index);
             $collectionHolder.data('index', index + 1);
             var $newFormLi = $('<li class="card"></li>').append(newForm);
-            $newFormLi.append('<a class="pull-left btn btn-danger remove-tag">Supprimer</a>');
-            $collectionHolder.prepend($newFormLi);
+            $newFormLi.append('<a class="pull-left btn btn-danger remove-tag"><span class="fa fa-times"></span></a>');
+            $collectionHolder.append($newFormLi);
         }
+
+        $(".modal").on("click", ".remove-tag", function (e) {
+            e.preventDefault();
+            $(this).parent().remove();
+            return false;
+        });
 
         /* Upload
 	    ================= */
