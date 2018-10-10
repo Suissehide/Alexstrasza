@@ -33,16 +33,6 @@ class Article
      */
     private $date;
 
-    // /**
-    //  * @ORM\Column(type="array")
-    //  */
-    // private $paths;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $image;
-
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="article")
      * @ORM\JoinColumn(nullable=false)
@@ -58,6 +48,11 @@ class Article
      * @ORM\OneToOne(targetEntity="App\Entity\Sondage", mappedBy="article", cascade={"persist", "remove"})
      */
     private $sondage;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $paths = [];
 
     public function __construct()
     {
@@ -101,18 +96,6 @@ class Article
     public function setDate(\DateTimeInterface $date) : self
     {
         $this->date = $date;
-
-        return $this;
-    }
-
-    public function getImage() : ? string
-    {
-        return $this->image;
-    }
-
-    public function setImage(? string $image) : self
-    {
-        $this->image = $image;
 
         return $this;
     }
@@ -174,6 +157,18 @@ class Article
         if ($newArticle !== $sondage->getArticle()) {
             $sondage->setArticle($newArticle);
         }
+
+        return $this;
+    }
+
+    public function getPaths(): ?array
+    {
+        return $this->paths;
+    }
+
+    public function setPaths(?array $paths): self
+    {
+        $this->paths = $paths;
 
         return $this;
     }

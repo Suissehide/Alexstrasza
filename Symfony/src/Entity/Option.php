@@ -73,15 +73,6 @@ class Option
         return $this;
     }
 
-    public function removeVote(Utilisateur $vote): self
-    {
-        if ($this->vote->contains($vote)) {
-            $this->vote->removeElement($vote);
-        }
-
-        return $this;
-    }
-
     public function getSondage(): ?Sondage
     {
         return $this->sondage;

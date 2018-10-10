@@ -466,7 +466,8 @@ input:-webkit-autofill {
 
 .login-wrapper, .article-wrapper {
     color: #fff;
-    margin-top: 5%;
+    margin: 100px 0;
+    list-style-type: none;
 }
 
 .article-form {
@@ -563,6 +564,25 @@ input:-webkit-autofill {
     box-shadow: none;
 }
 
+.sondage-header {
+    position: relative;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.sondage-header>p {
+    font-size: 18px;
+    display: inline-block;
+    margin: 8px;
+}
+
+.sondage-remove {
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
 .sondage-row {
     text-align: left;
     display: flex;
@@ -574,8 +594,8 @@ input:-webkit-autofill {
     position: relative;
     background-color: palevioletred;
     color: white;
-    height: 45px;
-    width: 45px;
+    height: 40px;
+    width: 40px;
     font-size: 18px;
     border: 2px solid palevioletred;
     border-radius: 50%;
@@ -590,8 +610,8 @@ input:-webkit-autofill {
 
 .sondage-row .btn-round i {
     position: absolute;
-    top: 13px;
-    left: 13px;
+    top: 11px;
+    left: 11px;
 }
 
 .sondage-row:hover .btn-round {
@@ -605,21 +625,21 @@ input:-webkit-autofill {
     max-height: 600px;
 }
 
-.option-add>p {
-    color: black;
-}
-
-.option-add:hover .btn-round {
-    color: palevioletred;
-}
-
 .card {
+    position: relative;
     text-align: left;
-    display: flex;
 }
 
-.card>* {
+.card input {
+    width: 90%;
+}
+
+.remove-tag {
     display: inline-block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-bottom: 10px;
 }
 
 /* Upload
@@ -709,7 +729,7 @@ input:-webkit-autofill {
     position: absolute;
 }
 
-#upload ul li span {
+#upload ul li .state {
     width: 15px;
     height: 16px;
     background: url('../gfx/icons.png') no-repeat;
@@ -1435,4 +1455,80 @@ input:-webkit-autofill {
     border-radius: 10px;
     box-shadow: inset 0 0 6px rgba(0, 0, 0, .3);
     background-color: white;
+}
+
+/* Pie Chart */
+
+.progress-pie-chart {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #00000050;
+    position: relative;
+}
+
+.progress-pie-chart.gt-50 {
+    background-color: #81CE97;
+}
+
+.ppc-progress {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    left: calc(50% - 25px);
+    top: calc(50% - 25px);
+    width: 50px;
+    height: 50px;
+    clip: rect(0, 50px, 50px, 25px);
+}
+
+.ppc-progress .ppc-progress-fill {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    left: calc(50% - 25px);
+    top: calc(50% - 25px);
+    width: 50px;
+    height: 50px;
+    clip: rect(0, 25px, 50px, 0);
+    background: #81CE97;
+    transform: rotate(60deg);
+}
+
+.gt-50 .ppc-progress {
+    clip: rect(0, 25px, 50px, 0);
+}
+
+.gt-50 .ppc-progress .ppc-progress-fill {
+    clip: rect(0, 50px, 50px, 25px);
+    background: #00000050;
+}
+
+.ppc-percents {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    left: calc(50% - 40px/2);
+    top: calc(50% - 40px/2);
+    width: 40px;
+    height: 40px;
+    background: #00000050;
+    text-align: center;
+    display: table;
+}
+
+.ppc-percents span {
+    display: block;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+}
+
+.pcc-percents-wrapper {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.progress-pie-chart {
+    margin-top: 5px;
 }

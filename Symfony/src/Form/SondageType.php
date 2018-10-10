@@ -24,6 +24,7 @@ class SondageType extends AbstractType
                 ),
             ))
             ->add('options', CollectionType::class, array(
+                'label' => false,
                 'entry_type' => OptionType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,

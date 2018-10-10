@@ -31,29 +31,30 @@ class ArticleType extends AbstractType
                     'placeholder' => "Contenu",
                 ),
             ))
-            ->add('image', FileType::class, array(
+            ->add('file', FileType::class, array(
                 'label' => false,
                 'multiple' => true,
                 'data_class' => null,
-            ))
-            ->add('sondage', EntityType::class, array(
-                'class' => 'App\Entity\Sondage',
-                'choice_label' => 'Sondage',
-                'multiple' => false,
-                "attr" => array(
-                    'class' => "hidden"
-                ),
-            ))
-
-            ->add('url', HiddenType::class, array(
                 "mapped" => false,
+            ))
+            ->add('paths')
+            // ->add('sondage', EntityType::class, array(
+            //     'class' => 'App\Entity\Sondage',
+            //     'choice_label' => 'Sondage',
+            //     'multiple' => false,
+            //     "attr" => array(
+            //         'class' => "hidden"
+            //     ),
+            // ))
+            ->add('sondage', SondageType::class, array(
+                'label' => false,
                 "attr" => array(
                     'class' => "hidden"
                 ),
-            ));
+            ))
             // ->add('date')
             // ->add('utilisateur')
-        ;
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -24,12 +24,12 @@ class ArticleController extends AbstractController
      */
     public function add(Request $request) : Response
     {
-        $formSondage = $this->createForm(SondageType::class, new Sondage());
-
+        $sondage = new Sondage();
+        $formSondage = $this->createForm(SondageType::class, $sondage);
+        
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
             $article->setDate(new \DateTime(null, new \DateTimeZone('Europe/Paris')));
             $article->setUtilisateur($this->getUser());
@@ -45,6 +45,19 @@ class ArticleController extends AbstractController
             'form' => $form->createView(),
             'formSondage' => $formSondage->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/upload", name="upload", methods="GET|POST")
+     */
+    public function upload(Request $request, FileUploader $fileUploader) : Response
+    {
+        if ($request->isXmlHttpRequest()) {
+            $file = $request->files->get('file');
+            $fileName = $fileUploader->upload($file);
+            return new Response($fileName);
+        }
+        throw new NotFoundHttpException('404 not found');
     }
 
     /**
