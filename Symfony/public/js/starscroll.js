@@ -187,12 +187,12 @@
             var $el = this.layers[i].DOM,
                 speed = -pos * ((i + 1) / 2);
 
-            // $el.css({ 'background-position': '0 ' + speed + 'px' })
+            // $el.css({ 'background-position': '0 ' + speed + 'px' });
             
-            $el.css({ 'background-position': speed + 'px 0' })
+            $el.css({ 'background-position': speed + 'px 0' });
         }
         if (this.type === "manual") {
-            $('html').css({ 'background-position': speed + 'px ' + (-0.666 * speed) + 'px' })
+            // $('html').css({ 'background-position': speed + 'px ' + (-0.666 * speed) + 'px' });
         }
     }
     Plugin.prototype.buildDOMels = function (DOM, i) {

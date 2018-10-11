@@ -9,11 +9,11 @@
 {% block _article_file_widget %}
     <div id="upload">
         <div id="drop">
-            Glisser/déposer une image
-
+            <p>Glisser/déposer une image</p>
             <a>
                 <span class="fa fa-upload"></span>
-                Charger</a>
+                Charger
+            </a>
             <input type="file" name="upl" {{ block('widget_attributes') }} multiple="multiple"/>
         </div>
         <ul></ul>
@@ -55,8 +55,12 @@
                 {{ form_widget(form.contenu) }}
             </div>
 
+            <div class="separator">Image</div>
+
             {{ form_row(form.file, {'required': false}) }}
             {{ form_widget(form.paths, {'required': false}) }}
+
+            <div class="separator">Sondage</div>
 
             <a class="sondage-row sondage-add">
                 <div class="btn-round">
@@ -72,7 +76,8 @@
                     Supprimer
                 </a>
             </div>
-            {{ form_widget(form.sondage) }}
+
+            {{ form_widget(form.sondage, {'required': false}) }}
 
             <button type="submit" class="button submit-btn">Ajouter</button>
 
@@ -117,9 +122,9 @@
             var index = $collectionHolder.data('index');
             var newForm = prototype.replace(/__name__/g, index);
             $collectionHolder.data('index', index + 1);
-            var $newFormLi = $('<li class="card"></li>').append(newForm);
-            $newFormLi.append('<a class="btn btn-danger remove-tag"><span class="fa fa-times"></span></a>');
-            $collectionHolder.append($newFormLi);
+            var newFormLi = $('<li class="card"></li>').append(newForm);
+            newFormLi.append('<a class="btn btn-danger remove-tag"><span class="fa fa-times"></span></a>');
+            $collectionHolder.append(newFormLi);
         }
 
         $("form").on("click", ".remove-tag", function (e) {
@@ -136,74 +141,92 @@
             $(this).parent().find('input').click();
         });
 
-        $('#upload').on('change', function () {
-            var formData = new FormData();
-            var file = document.getElementById("article_file").files[0];
-            formData.append("file", file);
-
-            if (file) {
-                var tpl = $('<li class="working"><div class="bar_container"><div id="main_container"><div id="pbar" class="progress-pie-chart" data-percent="0"><div class="ppc-progress"><div class="ppc-progress-fill"></div></div><div class="ppc-percents"><div class="pcc-percents-wrapper"><span>%</span></div></div></div><progress style="display: none" id="progress_bar" value="0" max="100"></progress></div></div><p></p><span class="state"></span></li>');
-                tpl
-                    .find('p')
-                    .text(file.name)
-                    .append('<i>' + formatFileSize(file.size) + '</i>');
-                tpl.appendTo('ul');
-                var xhr = new XMLHttpRequest();
-                xhr.open("POST", "{{ path( 'upload' ) }}", true);
-                xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
-                onUploadInit();
-                xhr.upload.addEventListener("load", onUploadComplete, false);
-                xhr.upload.addEventListener("progress", onUploadProgress, false);
-                xhr.onload = function () {
-                    if (xhr.readyState === xhr.DONE) {
-                        if (xhr.status === 200) {
-                            console.log(xhr.response);
-                            $('#article_paths').value = xhr.response;
-                        }
-                    }
-                };
-                xhr.send(formData);
-                nFile += 1;
-            } else {}
+        $('#drop').on({
+            'dragover dragenter': function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            },
+            'drop': function (e) {
+                var dataTransfer = e.originalEvent.dataTransfer;
+                if (dataTransfer && dataTransfer.files.length) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    $.each(dataTransfer.files, function (i, file) {
+                        /*
+                        var reader = new FileReader();
+                        reader.onload = $.proxy(function (file, $fileList, event) {
+                            var img = file.type.match('image.*') ? "<img src='" + event.target.result + "' /> " : "";
+                            $fileList.prepend($("<li>").append(img + file.name));
+                        }, this, file, $("#fileList"));
+                        reader.readAsDataURL(file);
+                        */
+                        upload(file);
+                    });
+                }
+            }
         });
 
-        function onUploadInit() {
-            var progressbar = $('#progress_bar');
-            max = progressbar.attr('max');
-            time = (1000 / max) * 5;
-            value = progressbar.val();
+        $('#upload').on('change', function () {
+            var file = document.getElementById("article_file").files[0];
 
-            var loading = function () {
-                value += 1;
-                addValue = progressbar.val(value);
+            upload(file);
 
-                $('.progress-value').html(value + '%');
-                var $ppc = $('.progress-pie-chart'),
-                    deg = 360 * value / 100;
-                if (value > 50) {
-                    $ppc.addClass('gt-50');
+        });
+
+        function upload(file) {
+            var formData = new FormData();
+            formData.append("file", file);
+            var tpl = $('<li><div id="upload_' + nFile + '" class="bar_container"><div id="main_container"><div id="pbar" class="progress-pie-chart" data-percent="0"><div class="ppc-progress"><div class="ppc-progress-fill"></div></div><div class="ppc-percents"><div class="pcc-percents-wrapper"><span>%</span></div></div></div><progress style="display: none" id="progress_bar" value="0" max="100"></progress></div></div><p></p><span class="state"></span></li>');
+            tpl
+                .find('p')
+                .text(file.name)
+                .append('<i>' + formatFileSize(file.size) + '</i>');
+            tpl.appendTo('ul');
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "{{ path( 'upload' ) }}", true);
+            xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
+            onUploadInit();
+            xhr.upload.addEventListener("load", onUploadComplete, false);
+            xhr.upload.addEventListener("progress", onUploadProgress, false);
+            xhr.onload = function () {
+                if (xhr.readyState === xhr.DONE) {
+                    if (xhr.status === 200) {
+                        console.log(xhr.response);
+                        tpl.addClass('complete');
+                        addFile(xhr.response);
+                    }
+                } else {
+                    tpl.addClass('error');
                 }
-
-                $('.ppc-progress-fill').css('transform', 'rotate(' + deg + 'deg)');
-                $('.ppc-percents span').html(value + '%');
-
-                if (value == max) {
-                    clearInterval(animate);
-                }
+                nFile += 1;
+                var $el = $('#article_file');
+                $el.wrap('<form>').closest('form').get(0).reset();
+                $el.unwrap();
             };
-
-            var animate = setInterval(function () {
-                loading();
-            }, time);
+            xhr.send(formData);
         }
 
-        function onUploadComplete(event) {
-            $(this).removeClass('working');
-        }
+        function onUploadInit() {}
+
+        function onUploadComplete(event) {}
 
         function onUploadProgress(event) {
             if (event.lengthComputable) {
                 var percentComplete = event.loaded / event.total;
+                var progressbar = $('#upload_' + nFile + ' #progress_bar');
+
+                value = progressbar.val();
+                value = parseFloat(percentComplete * 100).toFixed(2);
+                addValue = progressbar.val(value);
+
+                $('#upload_' + nFile + ' .progress-value').html(value + '%');
+                var $ppc = $('#upload_' + nFile + ' .progress-pie-chart'),
+                    deg = 360 * value / 100;
+                if (value > 50) {
+                    $ppc.addClass('gt-50');
+                }
+                $('#upload_' + nFile + ' .ppc-progress-fill').css('transform', 'rotate(' + deg + 'deg)');
+                $('#upload_' + nFile + ' .ppc-percents span').html(parseInt(value) + '%');
             }
         }
 
@@ -218,6 +241,18 @@
                 return (bytes / 1000000).toFixed(2) + ' MB';
             }
             return (bytes / 1000).toFixed(2) + ' KB';
+        }
+
+        function addFile(filename) {
+            var filenameList = $('#article_paths');
+            filenameList.data('index', filenameList.find(':input').length);
+            var prototype = filenameList.data('prototype');
+            var index = filenameList.data('index');
+            var newForm = prototype.replace(/__name__/g, index);
+            filenameList.data('index', index + 1);
+            var newFormLi = $('<div class="hidden"></div>').append(newForm);
+            filenameList.append(newFormLi);
+            filenameList.find('div:last-child input').val(filename);
         }
     </script>
 {% endblock %}

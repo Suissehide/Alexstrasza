@@ -2,23 +2,6 @@
  * CSS 
  */
 
-@font-face {
-    font-family: "Montserrat";
-    src: url('../font/Montserrat-Regular.ttf');
-}
-
-@font-face {
-    font-family: "Montserrat";
-    src: url('../font/Montserrat-Bold.ttf');
-    font-weight: bold;
-}
-
-@font-face {
-    font-family: "Montserrat";
-    src: url('../font/Montserrat-Italic.ttf');
-    font-style: italic;
-}
-
 *, *::after, *::before {
     box-sizing: border-box;
     margin: 0;
@@ -28,6 +11,7 @@
 html {
     height: 100%;
     margin: 0;
+    -ms-overflow-style: none;
     overflow: auto;
     font-family: "Montserrat", Helvetica, Arial, sans-serif;
     background-image: radial-gradient(rgba(96, 0, 255, 0.25), rgba(96, 0, 255, 0.05));
@@ -36,6 +20,7 @@ html {
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
+    background-attachment: fixed;
 }
 
 body {
@@ -297,7 +282,7 @@ input:-webkit-autofill {
     cursor: default;
     perspective: 1250px;
     transition: transform .8s ease;
-    background-color: #00000075;
+    background-color: rgba(0, 0, 0, 0.459);
     padding: 20px 30px;
     color: white;
 }
@@ -506,7 +491,7 @@ input:-webkit-autofill {
     margin: 0 auto;
     max-width: 400px;
     padding: 20px;
-    background-color: #00000050;
+    background-color: rgba(0, 0, 0, 0.314);
 }
 
 .article-wrapper .article-form {
@@ -587,6 +572,8 @@ input:-webkit-autofill {
     text-align: left;
     display: flex;
     cursor: pointer;
+    vertical-align: middle;
+    line-height: 40px;
 }
 
 .sondage-row .btn-round {
@@ -733,14 +720,14 @@ input:-webkit-autofill {
     width: 15px;
     height: 16px;
     background: url('../gfx/icons.png') no-repeat;
-    background-position: 0 -12px;
+    background-position: 0 18px;
     position: absolute;
     top: 22px;
     right: 32px;
     cursor: pointer;
 }
 
-#upload ul li.working span {
+#upload ul li.complete span {
     background-position: 0 3px;
 }
 
@@ -750,6 +737,10 @@ input:-webkit-autofill {
 
 #upload ul li.error p {
     color: red;
+}
+
+.has-advanced-upload {
+    background-color: white;
 }
 
 /* Modal
@@ -935,44 +926,18 @@ input:-webkit-autofill {
 }
 
 .loader .ball:nth-child(1) {
-    -webkit-animation: ball 2s ease-in-out infinite;
     animation: ball 2s ease-in-out infinite;
     left: 0;
 }
 
 .loader .ball:nth-child(2) {
-    -webkit-animation: ball 2s ease-in-out .1s infinite;
     animation: ball 2s ease-in-out .1s infinite;
     left: 8px;
 }
 
 .loader .ball:nth-child(3) {
-    -webkit-animation: ball 2s ease-in-out .2s infinite;
     animation: ball 2s ease-in-out .2s infinite;
     left: 16px;
-}
-
-@-webkit-keyframes ball {
-    0% {
-        top: 0;
-        height: 0;
-    }
-    25% {
-        top: 0;
-        height: 100vh;
-    }
-    50% {
-        top: 100vh;
-        height: 0;
-    }
-    75% {
-        top: 0;
-        height: 100vh;
-    }
-    100% {
-        top: 0;
-        height: 0;
-    }
 }
 
 @keyframes ball {
@@ -1457,18 +1422,19 @@ input:-webkit-autofill {
     background-color: white;
 }
 
-/* Pie Chart */
+/* Pie Chart
+================= */
 
 .progress-pie-chart {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background-color: #00000050;
+    background-color: white;
     position: relative;
 }
 
 .progress-pie-chart.gt-50 {
-    background-color: #81CE97;
+    background-color: palevioletred;
 }
 
 .ppc-progress {
@@ -1491,7 +1457,7 @@ input:-webkit-autofill {
     width: 50px;
     height: 50px;
     clip: rect(0, 25px, 50px, 0);
-    background: #81CE97;
+    background: palevioletred;
     transform: rotate(60deg);
 }
 
@@ -1501,7 +1467,7 @@ input:-webkit-autofill {
 
 .gt-50 .ppc-progress .ppc-progress-fill {
     clip: rect(0, 50px, 50px, 25px);
-    background: #00000050;
+    background: white;
 }
 
 .ppc-percents {
@@ -1512,7 +1478,7 @@ input:-webkit-autofill {
     top: calc(50% - 40px/2);
     width: 40px;
     height: 40px;
-    background: #00000050;
+    background: #000000;
     text-align: center;
     display: table;
 }
@@ -1531,4 +1497,16 @@ input:-webkit-autofill {
 
 .progress-pie-chart {
     margin-top: 5px;
+}
+
+/* Separator
+================= */
+
+form .separator {
+    margin: 15px -20px;
+    background-color: transparent;
+    text-align: left;
+    color: white;
+    padding-left: 10px;
+    border-bottom: 1px solid white;
 }

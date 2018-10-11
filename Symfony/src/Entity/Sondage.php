@@ -19,7 +19,7 @@ class Sondage
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $titre;
 
@@ -48,7 +48,7 @@ class Sondage
         return $this->titre;
     }
 
-    public function setTitre(string $titre): self
+    public function setTitre(? string $titre): self
     {
         $this->titre = $titre;
 

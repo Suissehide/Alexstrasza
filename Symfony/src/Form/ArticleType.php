@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
@@ -37,15 +38,13 @@ class ArticleType extends AbstractType
                 'data_class' => null,
                 "mapped" => false,
             ))
-            ->add('paths')
-            // ->add('sondage', EntityType::class, array(
-            //     'class' => 'App\Entity\Sondage',
-            //     'choice_label' => 'Sondage',
-            //     'multiple' => false,
-            //     "attr" => array(
-            //         'class' => "hidden"
-            //     ),
-            // ))
+            ->add('paths', CollectionType::class, array(
+                'label' => false,
+                'entry_options' => array('label' => false),
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+            ))
             ->add('sondage', SondageType::class, array(
                 'label' => false,
                 "attr" => array(

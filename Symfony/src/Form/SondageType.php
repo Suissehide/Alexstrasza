@@ -19,6 +19,7 @@ class SondageType extends AbstractType
 
             ->add('titre', TextType::class, array(
                 'label' => false,
+                'required' => false,
                 'attr' => array(
                     'placeholder' => "Quelle est la question de votre sondage ?",
                 ),
@@ -30,6 +31,7 @@ class SondageType extends AbstractType
                 'allow_add' => true,
                 'allow_delete' => true,
                 'by_reference' => false,
+                'delete_empty' => true,
             ))
             // ->add('article')
             ;

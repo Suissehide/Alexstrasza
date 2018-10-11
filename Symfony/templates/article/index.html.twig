@@ -12,7 +12,6 @@
                 <th>Titre</th>
                 <th>Contenu</th>
                 <th>Date</th>
-                <th>Image</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -23,7 +22,6 @@
                 <td>{{ article.titre }}</td>
                 <td>{{ article.contenu }}</td>
                 <td>{{ article.date ? article.date|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ article.image }}</td>
                 <td>
                     <a href="{{ path('article_show', {'id': article.id}) }}">show</a>
                     <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a>

@@ -15,174 +15,61 @@
         </div>
         <div class="manual scroll">
             <span>
-                <div class="article">
-                    <div class="flex">
-                        <div>
-                            <div class="title">Titre</div>
-                            <div class="date">lundi 01 octobre</div>
-                        </div>
-                        <div class="username violet">Léo</div>
-                    </div>
-                    <div class="content">
-                        Mox dicta finierat, multitudo omnis ad, quae imperator voluit, promptior laudato consilio consensit in pacem ea ratione maxime percita, quod norat expeditionibus crebris fortunam eius in malis tantum civilibus vigilasse, cum autem bella moverentur externa, accidisse plerumque luctuosa, icto post haec foedere gentium ritu perfectaque sollemnitate imperator Mediolanum ad hiberna discessit.
-                    </div>
-                    <div class="img"></div>
-
-                    <div class="sondage">
-                        <div class="title">Le lait, avant ou après les céréales ?</div>
-                        <div class="option funkyradio">
-                            <div class="funkyradio-default">
-                                <input type="checkbox" name="checkbox" id="checkbox1"/>
-                                <label for="checkbox1">
-                                    Avant
-                                    <span class="votes violet">+ 0</span>
-                                </label>
+                {% for article in articles %}
+                    <div class="article">
+                        <div class="flex">
+                            <div>
+                                <div class="title">{{ article.titre }}</div>
+                                <div class="date">{{ article.date|date("F jS \\a\\t g:ia") }}</div>
                             </div>
+                            <div class="username violet">{{ article.utilisateur.username }}</div>
                         </div>
-                        <div class="option funkyradio">
-                            <div class="funkyradio-default">
-                                <input type="checkbox" name="checkbox" id="checkbox2"/>
-                                <label for="checkbox2">
-                                    Apres
-                                    <span class="votes violet">+ 5</span>
-                                </label>
+                        <div class="content">
+                            {{ article.contenu }}
+                        </div>
+                        <div class="img"></div>
+
+                        {% if article.sondage %}
+                            <div class="sondage">
+                                <div class="title">{{ article.sondage.titre }}</div>
+
+                                {% for option in articles.sondage.options %}
+                                    <div class="option funkyradio">
+                                        <div class="funkyradio-default">
+                                            <input type="checkbox" name="checkbox" id="checkbox1"/>
+                                            <label for="checkbox1">
+                                                {{ option.contenu }}
+                                                <span class="votes violet">+ {{ option.vote }}</span>
+                                            </label>
+                                        </div>
+                                    </div>
+                                {% endfor %}
                             </div>
+                        {% endif %}
+
+                        <div class="separator"></div>
+
+                        <div class="like">
+                            <span class="fa fa-heart"></span>
+                            12
+                        </div>
+
+                        <div class="button-block">
+                            <a class='like-button'>
+                                <span class='like-icon'>
+                                    <div class='heart-animation-1'></div>
+                                    <div class='heart-animation-2'></div>
+                                </span>
+                                J'aime
+                            </a>
+                            <button class="button btn-light">
+                                <span class="fa fa-comments"></span>
+                                Commenter
+                            </button>
                         </div>
                     </div>
+                {% endfor %}
 
-                    <div class="separator"></div>
-
-                    <div class="like">
-                        <span class="fa fa-heart"></span>
-                        12
-                    </div>
-
-                    <div class="button-block">
-                        <a class='like-button'>
-                            <span class='like-icon'>
-                                <div class='heart-animation-1'></div>
-                                <div class='heart-animation-2'></div>
-                            </span>
-                            J'aime
-                        </a>
-                        <button class="button btn-light">
-                            <span class="fa fa-comments"></span>
-                            Commenter
-                        </button>
-                    </div>
-                </div>
-                <div class="article">
-                    <div class="flex">
-                        <div>
-                            <div class="title">Titre</div>
-                            <div class="date">lundi 01 octobre</div>
-                        </div>
-                        <div class="username violet">Léo</div>
-                    </div>
-                    <div class="content">
-                        Mox dicta finierat, multitudo omnis ad, quae imperator voluit, promptior laudato consilio consensit in pacem ea ratione maxime percita, quod norat expeditionibus crebris fortunam eius in malis tantum civilibus vigilasse, cum autem bella moverentur externa, accidisse plerumque luctuosa, icto post haec foedere gentium ritu perfectaque sollemnitate imperator Mediolanum ad hiberna discessit.
-                    </div>
-                    <div class="img"></div>
-
-                    <div class="sondage">
-                        <div class="title">Le lait, avant ou après les céréales ?</div>
-                        <div class="option funkyradio">
-                            <div class="funkyradio-default">
-                                <input type="checkbox" name="checkbox" id="checkbox1"/>
-                                <label for="checkbox1">
-                                    Avant
-                                    <span class="votes violet">+ 0</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="option funkyradio">
-                            <div class="funkyradio-default">
-                                <input type="checkbox" name="checkbox" id="checkbox2"/>
-                                <label for="checkbox2">
-                                    Apres
-                                    <span class="votes violet">+ 5</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="separator"></div>
-
-                    <div class="like">
-                        <span class="fa fa-heart"></span>
-                        12
-                    </div>
-
-                    <div class="button-block">
-                        <a class='like-button'>
-                            <span class='like-icon'>
-                                <div class='heart-animation-1'></div>
-                                <div class='heart-animation-2'></div>
-                            </span>
-                            J'aime
-                        </a>
-                        <button class="button btn-light">
-                            <span class="fa fa-comments"></span>
-                            Commenter
-                        </button>
-                    </div>
-                </div>
-                <div class="article">
-                    <div class="flex">
-                        <div>
-                            <div class="title">Titre</div>
-                            <div class="date">lundi 01 octobre</div>
-                        </div>
-                        <div class="username violet">Léo</div>
-                    </div>
-                    <div class="content">
-                        Mox dicta finierat, multitudo omnis ad, quae imperator voluit, promptior laudato consilio consensit in pacem ea ratione maxime percita, quod norat expeditionibus crebris fortunam eius in malis tantum civilibus vigilasse, cum autem bella moverentur externa, accidisse plerumque luctuosa, icto post haec foedere gentium ritu perfectaque sollemnitate imperator Mediolanum ad hiberna discessit.
-                    </div>
-                    <div class="img"></div>
-
-                    <div class="sondage">
-                        <div class="title">Le lait, avant ou après les céréales ?</div>
-                        <div class="option funkyradio">
-                            <div class="funkyradio-default">
-                                <input type="checkbox" name="checkbox" id="checkbox1"/>
-                                <label for="checkbox1">
-                                    Avant
-                                    <span class="votes violet">+ 0</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="option funkyradio">
-                            <div class="funkyradio-default">
-                                <input type="checkbox" name="checkbox" id="checkbox2"/>
-                                <label for="checkbox2">
-                                    Apres
-                                    <span class="votes violet">+ 5</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="separator"></div>
-
-                    <div class="like">
-                        <span class="fa fa-heart"></span>
-                        12
-                    </div>
-
-                    <div class="button-block">
-                        <a class='like-button'>
-                            <span class='like-icon'>
-                                <div class='heart-animation-1'></div>
-                                <div class='heart-animation-2'></div>
-                            </span>
-                            J'aime
-                        </a>
-                        <button class="button btn-light">
-                            <span class="fa fa-comments"></span>
-                            Commenter
-                        </button>
-                    </div>
-                </div>
                 <div class="article">
                     <div class="flex">
                         <div>
