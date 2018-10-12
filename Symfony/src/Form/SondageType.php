@@ -3,8 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Sondage;
-use App\Entity\Option;
-use App\Form\OptionType;
+use App\Entity\Reponse;
+use App\Form\ReponseType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -24,9 +24,9 @@ class SondageType extends AbstractType
                     'placeholder' => "Quelle est la question de votre sondage ?",
                 ),
             ))
-            ->add('options', CollectionType::class, array(
+            ->add('reponses', CollectionType::class, array(
                 'label' => false,
-                'entry_type' => OptionType::class,
+                'entry_type' => ReponseType::class,
                 'entry_options' => array('label' => false),
                 'allow_add' => true,
                 'allow_delete' => true,

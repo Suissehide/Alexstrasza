@@ -14,119 +14,7 @@
             <div>Manual</div>
         </div>
         <div class="manual scroll">
-            <span>
-                {% for article in articles %}
-                    <div class="article">
-                        <div class="flex">
-                            <div>
-                                <div class="title">{{ article.titre }}</div>
-                                <div class="date">{{ article.date|date("F jS \\a\\t g:ia") }}</div>
-                            </div>
-                            <div class="username violet">{{ article.utilisateur.username }}</div>
-                        </div>
-                        <div class="content">
-                            {{ article.contenu }}
-                        </div>
-                        <div class="img"></div>
-
-                        {% if article.sondage %}
-                            <div class="sondage">
-                                <div class="title">{{ article.sondage.titre }}</div>
-
-                                {% for option in articles.sondage.options %}
-                                    <div class="option funkyradio">
-                                        <div class="funkyradio-default">
-                                            <input type="checkbox" name="checkbox" id="checkbox1"/>
-                                            <label for="checkbox1">
-                                                {{ option.contenu }}
-                                                <span class="votes violet">+ {{ option.vote }}</span>
-                                            </label>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        {% endif %}
-
-                        <div class="separator"></div>
-
-                        <div class="like">
-                            <span class="fa fa-heart"></span>
-                            12
-                        </div>
-
-                        <div class="button-block">
-                            <a class='like-button'>
-                                <span class='like-icon'>
-                                    <div class='heart-animation-1'></div>
-                                    <div class='heart-animation-2'></div>
-                                </span>
-                                J'aime
-                            </a>
-                            <button class="button btn-light">
-                                <span class="fa fa-comments"></span>
-                                Commenter
-                            </button>
-                        </div>
-                    </div>
-                {% endfor %}
-
-                <div class="article">
-                    <div class="flex">
-                        <div>
-                            <div class="title">Titre</div>
-                            <div class="date">lundi 01 octobre</div>
-                        </div>
-                        <div class="username violet">Léo</div>
-                    </div>
-                    <div class="content">
-                        Mox dicta finierat, multitudo omnis ad, quae imperator voluit, promptior laudato consilio consensit in pacem ea ratione maxime percita, quod norat expeditionibus crebris fortunam eius in malis tantum civilibus vigilasse, cum autem bella moverentur externa, accidisse plerumque luctuosa, icto post haec foedere gentium ritu perfectaque sollemnitate imperator Mediolanum ad hiberna discessit.
-                    </div>
-                    <div class="img"></div>
-
-                    <div class="sondage">
-                        <div class="title">Le lait, avant ou après les céréales ?</div>
-                        <div class="option funkyradio">
-                            <div class="funkyradio-default">
-                                <input type="checkbox" name="checkbox" id="checkbox1"/>
-                                <label for="checkbox1">
-                                    Avant
-                                    <span class="votes violet">+ 0</span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="option funkyradio">
-                            <div class="funkyradio-default">
-                                <input type="checkbox" name="checkbox" id="checkbox2"/>
-                                <label for="checkbox2">
-                                    Apres
-                                    <span class="votes violet">+ 5</span>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="separator"></div>
-
-                    <div class="like">
-                        <span class="fa fa-heart"></span>
-                        12
-                    </div>
-
-                    <div class="button-block">
-                        <a class='like-button'>
-                            <span class='like-icon'>
-                                <div class='heart-animation-1'></div>
-                                <div class='heart-animation-2'></div>
-                            </span>
-                            J'aime
-                        </a>
-                        <button class="button btn-light">
-                            <span class="fa fa-comments"></span>
-                            Commenter
-                        </button>
-                    </div>
-                </div>
-            </span>
+            <span></span>
         </div>
         <div class="timeline"></div>
     </div>
@@ -137,13 +25,24 @@
     <script src="{{ asset('js/starscroll.js') }}"></script>
     <script src="{{ asset('js/controls.js') }}"></script>
     <script type="text/javascript">
-        (function ($) {
+
+        var username = "{{ app.user.username }}";
+
+        function enableInvertScroll() {
             $.jInvertScroll(['.scroll'], {
                 width: 'auto',
                 height: 'auto',
                 onScroll: function (percent) {}
             });
-        }(jQuery));
+        }
+
+        function calcMaxWidth() {
+            var width = 0;
+            $('.manual span').find('.article').each(function () {
+                width += $(this).outerWidth(true);
+            });
+            $('.manual').css('width', width + 750 + 'px');
+        }
 
         $(document).ready(function () {
             $('html, body').animate({
@@ -156,7 +55,7 @@
         /**
         * like
         */
-        $('a.like-button').on('click', function () {
+        $('.manual').on('click', '.like-button', function () {
             $(this).toggleClass('liked');
             var like = $(this).parents('.article').find('.like');
             var likes = parseInt(like.text());
@@ -169,24 +68,25 @@
                 diff = -1;
                 like.html('<span class="fa fa-heart"></span> ' + likes);
             }
-            /*
-                $.ajax({
-                    url: "{{ path( 'add_like', {id : '1'}) }}",
-                    type: "POST",
-                    dataType: "text",
-                    data: {
-                        "diff": diff,
-                    },
-                    success: function (resp) {}
-                });
-                */
+            var url = "{{ path( 'add_like', {'id' : 'article_id'}) }}";
+            var id = $(this).parents('.article').attr('id');
+            url = url.replace('article_id', id);
+            $.ajax({
+                url: url,
+                type: "POST",
+                dataType: "text",
+                data: {
+                    "diff": diff
+                },
+                success: function (resp) {}
+            });
         });
 
         /**
         * vote
         */
-        $('.sondage .option input').on('click', function () {
-            var vote = $(this).parents('.option').find('.votes');
+        $('.manual').on('click', '.sondage .reponse input', function () {
+            var vote = $(this).parents('.reponse').find('.votes');
             var votes = parseInt(vote.text().replace(/[^\d.]/g, ''));
             var diff = 1;
             if ($(this).is(':checked')) {
@@ -197,53 +97,137 @@
                 diff = -1;
                 vote.text('+ ' + votes);
             }
-            /*
-                $.ajax({
-                    url: "{{ path( 'add_vote', {id : '1'}) }}",
-                    type: "POST",
-                    dataType: "text",
-                    data: {
-                        "diff": diff,
-                    },
-                    success: function (resp) {}
-                });
-            */
+            var url = "{{ path( 'add_vote', {'id' : 'reponse_id'}) }}";
+            var id = $(this).parents('.reponse').attr('id');
+            url = url.replace('reponse_id', id);
+            $.ajax({
+                url: url,
+                type: "POST",
+                dataType: "text",
+                data: {
+                    "diff": diff
+                },
+                success: function (resp) {}
+            });
         });
 
         /**
         * infiniteScroll
         */
-        //function infiniteScroll() {
-        var offset = 20;
-
-        $(window).data('ajaxready', true);
-
-        $('.wrapper').append('<div class="loader-wrapper"><div class="loader"><div class="ball"></div><div class="ball"></div><div class="ball"></div></div></div>');
-
+        var offset = 0;
         var deviceAgent = navigator.userAgent.toLowerCase();
         var agentID = deviceAgent.match(/(iphone|ipod|ipad)/);
 
+        $(window).data('ajaxready', true);
+        $('.wrapper').append('<div class="loader-wrapper"><div class="loader"><div class="ball"></div><div class="ball"></div><div class="ball"></div></div></div>');
+        infiniteScroll();
         $(window).scroll(function () {
+            infiniteScroll();
+        });
+
+        function infiniteScroll() {
             if ($(window).data('ajaxready') == false) 
                 return;
             
             if (($(window).scrollTop() + $(window).height()) == $(document).height() || agentID && ($(window).scrollTop() + $(window).height()) + 150 > $(document).height()) {
                 $(window).data('ajaxready', false);
 
-                $('.manual #loader').fadeIn(400);
+                $('.wrapper .loader-wrapper').fadeIn(400);
                 var url = "{{ path('article_more', {'offset' : 'offset_val'}) }}";
                 url = url.replace('offset_val', offset);
                 $.get(url, function (data) {
-                    if (data != '') {
-                        $('.manual #loader').before(data);
-                        $('.manual .hidden').fadeIn(400);
-                        offset += 20;
+                    if (data) {
+                        $('.wrapper .loader-wrapper').fadeIn(400);
+                        displayArticle(data);
+                        offset += 1;
                         $(window).data('ajaxready', true);
                     }
-                    $('.manual #loader').fadeOut(400);
+                    $('.wrapper .loader-wrapper').fadeOut(400);
                 });
             }
-        });
-        //};
+        };
+
+        function displayArticle(data) {
+            json = JSON.parse(data);
+            $.each(json, function (i, item) {
+                var article = `
+                            <div class="article" id="` + json[i].id + `">
+                                <div class="flex">
+                                    <div>
+                                        <div class="title">` + json[i].titre + `</div>
+                                        <div class="date">` + json[i].date + `</div>
+                                    </div>
+                                    <div class="username violet">` + json[i].utilisateur.username + `</div>
+                                </div>
+                                <div class="content">
+                                    ` + json[i].contenu + `
+                                </div>
+                                <div class="img"></div>
+                            `;
+                if (json[i].sondage.titre) {
+                    article += `
+                                    <div class="sondage">
+                                        <div class="title">` + json[i].sondage.titre + `</div>
+                                        `;
+                    var reponses = json[i].sondage.reponses;
+                    jQuery.each(reponses, function (i, item) {
+                        var vote = "";
+                        $.each(reponses[i].vote, function (i, item) {
+                            if (item.username == username) {
+                                vote = "checked";
+                                return;
+                            }
+                        });
+                        article += `
+                                            <div class="reponse funkyradio" id="` + reponses[i].id + `">
+                                                <div class="funkyradio-default">
+                                                    <input type="checkbox" name="checkbox" id="checkbox` + reponses[i].id + `" ` + vote + `/>
+                                                    <label for="checkbox` + reponses[i].id + `">
+                                                        ` + reponses[i].contenu + `
+                                                        <span class="votes violet">+ ` + reponses[i].vote.length + `</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        `;
+                    });
+                    article += `</div>`
+                }
+                var liked = "";
+                $.each(json[i].thumb, function (i, item) {
+                    if (item.username == username) {
+                        liked = "liked";
+                        return;
+                    }
+                });
+                article += `
+                                <div class="separator-pink"></div>
+
+                                <div class="like">
+                                    <span class="fa fa-heart"></span>
+                                    ` + json[i].thumb.length + `
+                                </div>
+
+                                <div class="separator"></div>
+
+                                <div class="button-block">
+                                    <a class="like-button ` + liked + `">
+                                        <span class='like-icon'>
+                                            <div class='heart-animation-1'></div>
+                                            <div class='heart-animation-2'></div>
+                                        </span>
+                                        J'aime
+                                    </a>
+                                    <button class="button btn-light">
+                                        <span class="fa fa-comments"></span>
+                                        Commenter
+                                    </button>
+                                </div>
+                            </div>
+                    `;
+                $('.manual>span').append(article);
+                calcMaxWidth();
+                enableInvertScroll();
+            });
+        }
     </script>
 {% endblock %}

@@ -271,14 +271,14 @@ input:-webkit-autofill {
 .manual>span {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: flex-start;
 }
 
 .manual .article {
     flex-shrink: 0;
     width: calc(100vw - 5rem);
     max-width: 500px;
-    margin: 0 5%;
+    margin: 0 7%;
     cursor: default;
     perspective: 1250px;
     transition: transform .8s ease;
@@ -288,11 +288,15 @@ input:-webkit-autofill {
 }
 
 .article:nth-child(2n+2) {
-    transform: translateY(10%);
+    transform: translateY(15%);
 }
 
 .article:nth-child(3n+3) {
-    transform: translateY(-5%);
+    transform: translateY(30%);
+}
+
+.article:nth-child(4n+4) {
+    transform: translateY(-15%);
 }
 
 .article .flex {
@@ -301,8 +305,9 @@ input:-webkit-autofill {
     justify-content: space-between;
 }
 
-.article .title {
-    font-size: 16px;
+.article .flex .title {
+    font-size: 18px;
+    font-weight: bold;
 }
 
 .article .date {
@@ -314,7 +319,7 @@ input:-webkit-autofill {
     margin: 10px 0;
 }
 
-.article .separator {
+.article .separator-pink {
     margin: 10px 0;
     border-top: 1px solid palevioletred;
 }
@@ -405,7 +410,7 @@ input:-webkit-autofill {
 }
 
 .button-block {
-    margin: 10px -10px;
+    margin: 20px -10px 0px -10px;
     display: flex;
     flex-flow: row;
 }
@@ -1502,7 +1507,7 @@ input:-webkit-autofill {
 /* Separator
 ================= */
 
-form .separator {
+.separator {
     margin: 15px -20px;
     background-color: transparent;
     text-align: left;

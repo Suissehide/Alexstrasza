@@ -9,6 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
@@ -26,6 +27,7 @@ class Utilisateur implements UserInterface, EquatableInterface
     /**
      * @ORM\Column(type="string", length=255, unique=true)
      * @Assert\NotBlank()
+     * @Groups({"article"})
      */
     private $username;
 
@@ -57,7 +59,7 @@ class Utilisateur implements UserInterface, EquatableInterface
     private $thumb;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Option", mappedBy="vote")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Reponse", mappedBy="vote")
      */
     private $vote;
 

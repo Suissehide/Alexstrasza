@@ -14,6 +14,16 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use App\Service\FileUploader;
 
+use Doctrine\Common\Annotations\AnnotationReader;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncode;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Mapping\Factory\ClassMetadataFactory;
+use Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader;
+use Symfony\Component\Serializer\Normalizer\PropertyNormalizer;
+use Symfony\Component\Serializer\Serializer;
+
 /**
  * @Route("/article")
  */
@@ -26,7 +36,7 @@ class ArticleController extends AbstractController
     {
         $sondage = new Sondage();
         $formSondage = $this->createForm(SondageType::class, $sondage);
-        
+
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -136,10 +146,23 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/like", name="add_like", methods="GET|POST")
+     * @Route("/{id}/like", name="add_like", methods="POST")
      */
-    public function add_like(Request $request) : Response
+    public function add_like(Request $request, Article $article) : Response
     {
+        if ($request->isXmlHttpRequest()) {
+            $diff = $request->request->get('diff');
+            if ($diff == '1') {
+                $article->addThumb($this->getUser());
+            }
+            else {
+                $article->removeThumb($this->getUser());
+            }
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            return new Response();
+        }
+        throw new NotFoundHttpException('404 not found');
     }
 
     /**
@@ -147,19 +170,27 @@ class ArticleController extends AbstractController
      */
     public function article_more(Request $request, ArticleRepository $articleRepository, $offset) : Response
     {
+        $max = 1;
+
         if ($request->isXmlHttpRequest()) {
-            $max = 2;
-            $articles = $articleRepository->findByOffset($offset, $max);
+            $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
+            $normalizer = new ObjectNormalizer($classMetadataFactory);
+            $serializer = new Serializer([$normalizer], [new JsonEncode()]);
 
-            $rows = array();
-            foreach ($articles as $article) {
-                $row = [
-                    "id" => $article->getId(),
-                ];
-                array_push($rows, $row);
-            }
+            $callback = function ($dateTime) {
+                return $dateTime instanceof \DateTime
+                    ? $dateTime->format('d/m/y')
+                    : '';
+            };
+            $normalizer->setCallbacks(array(
+                'date' => $callback,
+            ));
 
-            return new JsonResponse($rows);
+            $org = $articleRepository->findByOffset($offset, $max);
+            $data = $serializer->serialize($org, 'json', array('groups' => array('article')));
+
+            $response = new JsonResponse($data);
+            return $response;
         }
         throw new NotFoundHttpException('Erreur ajax');
     }

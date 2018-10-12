@@ -2,13 +2,13 @@
 
 namespace App\Form;
 
-use App\Entity\Option;
+use App\Entity\Reponse;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class OptionType extends AbstractType
+class ReponseType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -26,7 +26,7 @@ class OptionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Option::class,
+            'data_class' => Reponse::class,
         ]);
     }
 }

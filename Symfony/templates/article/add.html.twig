@@ -20,14 +20,14 @@
     </div>
 {% endblock %}
 
-{% block _article_sondage_options_widget %}
+{% block _article_sondage_reponses_widget %}
     <div class="scrollbar list-wrapper">
         {% if prototype is defined %}
             {% set attr = attr|merge({'data-prototype': form_row(prototype) }) %}
         {% endif %}
         {{ block('form_widget') }}
     </div>
-    <a class="sondage-row option-add">
+    <a class="sondage-row reponse-add">
         <div class="btn-round">
             <i class="fa fa-plus"></i>
         </div>
@@ -91,10 +91,10 @@
 {% block javascripts %}
     <script type="text/javascript">
 
-        /* Sondage Option
+        /* Sondage Reponse
 	    ================= */
-        var $addTagLink = $('.option-add');
-        var $collectionHolder = $('#article_sondage_options');
+        var $addTagLink = $('.reponse-add');
+        var $collectionHolder = $('#article_sondage_reponses');
         $collectionHolder.data('index', $collectionHolder.find(':input').length);
 
         $('.sondage-add').on('click', function () {

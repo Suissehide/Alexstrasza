@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ArticleRepository")
@@ -15,42 +16,50 @@ class Article
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"article"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"article"})
      */
     private $titre;
 
     /**
      * @ORM\Column(type="text")
+     * @Groups({"article"})
      */
     private $contenu;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"article"})
      */
     private $date;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="article")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"article"})
      */
     private $utilisateur;
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Utilisateur", mappedBy="thumb")
+     * @Groups({"article"})
      */
     private $thumb;
 
     /**
      * @ORM\OneToOne(targetEntity="App\Entity\Sondage", mappedBy="article", cascade={"persist", "remove"})
+     * @Groups({"article"})
      */
     private $sondage;
 
     /**
      * @ORM\Column(type="array", nullable=true)
+     * @Groups({"article"})
      */
     private $paths = [];
 

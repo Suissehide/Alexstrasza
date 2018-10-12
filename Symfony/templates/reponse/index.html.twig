@@ -1,9 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Option index{% endblock %}
+{% block title %}Reponse index{% endblock %}
 
 {% block body %}
-    <h1>Option index</h1>
+    <h1>Reponse index</h1>
 
     <table class="table">
         <thead>
@@ -14,13 +14,13 @@
             </tr>
         </thead>
         <tbody>
-        {% for option in options %}
+        {% for reponse in reponses %}
             <tr>
-                <td>{{ option.id }}</td>
-                <td>{{ option.contenu }}</td>
+                <td>{{ reponse.id }}</td>
+                <td>{{ reponse.contenu }}</td>
                 <td>
-                    <a href="{{ path('option_show', {'id': option.id}) }}">show</a>
-                    <a href="{{ path('option_edit', {'id': option.id}) }}">edit</a>
+                    <a href="{{ path('reponse_show', {'id': reponse.id}) }}">show</a>
+                    <a href="{{ path('reponse_edit', {'id': reponse.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -31,5 +31,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('option_new') }}">Create new</a>
+    <a href="{{ path('reponse_new') }}">Create new</a>
 {% endblock %}

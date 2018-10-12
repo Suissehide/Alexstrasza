@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SondageRepository")
@@ -20,6 +21,7 @@ class Sondage
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"article"})
      */
     private $titre;
 
@@ -29,13 +31,14 @@ class Sondage
     private $article;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Option", mappedBy="sondage", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Reponse", mappedBy="sondage", orphanRemoval=true, cascade={"persist"})
+     * @Groups({"article"})
      */
-    private $options;
+    private $reponses;
 
     public function __construct()
     {
-        $this->options = new ArrayCollection();
+        $this->reponses = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -68,30 +71,30 @@ class Sondage
     }
 
     /**
-     * @return Collection|Option[]
+     * @return Collection|Reponse[]
      */
-    public function getOptions(): Collection
+    public function getReponses(): Collection
     {
-        return $this->options;
+        return $this->reponses;
     }
 
-    public function addOption(Option $option): self
+    public function addReponse(Reponse $reponse): self
     {
-        if (!$this->options->contains($option)) {
-            $this->options[] = $option;
-            $option->setSondage($this);
+        if (!$this->reponses->contains($reponse)) {
+            $this->reponses[] = $reponse;
+            $reponse->setSondage($this);
         }
 
         return $this;
     }
 
-    public function removeOption(Option $option): self
+    public function removeReponse(Reponse $reponse): self
     {
-        if ($this->options->contains($option)) {
-            $this->options->removeElement($option);
+        if ($this->reponses->contains($reponse)) {
+            $this->reponses->removeElement($reponse);
             // set the owning side to null (unless already changed)
-            if ($option->getSondage() === $this) {
-                $option->setSondage(null);
+            if ($reponse->getSondage() === $this) {
+                $reponse->setSondage(null);
             }
         }
 
