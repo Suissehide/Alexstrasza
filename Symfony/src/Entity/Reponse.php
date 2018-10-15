@@ -83,4 +83,17 @@ class Reponse
 
         return $this;
     }
+
+    public function removeVote(Utilisateur $vote) : self
+    {
+        if ($this->vote->contains($vote)) {
+            $this->vote->removeElement($vote);
+            // set the owning side to null (unless already changed)
+            if ($vote->getVote() === $this) {
+                $vote->setVote(null);
+            }
+        }
+
+        return $this;
+    }
 }

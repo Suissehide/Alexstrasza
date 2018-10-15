@@ -262,10 +262,10 @@ input:-webkit-autofill {
 .manual {
     z-index: 50;
     top: 200px;
-    height: 100%;
     /* display: flex;
     justify-content: center;
     align-items: center; */
+    margin-left: 15%;
 }
 
 .manual>span {
@@ -278,10 +278,8 @@ input:-webkit-autofill {
     flex-shrink: 0;
     width: calc(100vw - 5rem);
     max-width: 500px;
-    margin: 0 7%;
+    margin: 0 5%;
     cursor: default;
-    perspective: 1250px;
-    transition: transform .8s ease;
     background-color: rgba(0, 0, 0, 0.459);
     padding: 20px 30px;
     color: white;

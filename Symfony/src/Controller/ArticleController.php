@@ -166,12 +166,10 @@ class ArticleController extends AbstractController
     }
 
     /**
-     * @Route("/more/{offset}", name="article_more", methods="GET")
+     * @Route("/more", name="article_more", methods="GET|POST")
      */
-    public function article_more(Request $request, ArticleRepository $articleRepository, $offset) : Response
+    public function article_more(Request $request, ArticleRepository $articleRepository) : Response
     {
-        $max = 1;
-
         if ($request->isXmlHttpRequest()) {
             $classMetadataFactory = new ClassMetadataFactory(new AnnotationLoader(new AnnotationReader()));
             $normalizer = new ObjectNormalizer($classMetadataFactory);
@@ -186,6 +184,8 @@ class ArticleController extends AbstractController
                 'date' => $callback,
             ));
 
+            $offset = $request->request->get('offset');
+            $max = $request->request->get('max');
             $org = $articleRepository->findByOffset($offset, $max);
             $data = $serializer->serialize($org, 'json', array('groups' => array('article')));
 

@@ -28,28 +28,6 @@
 
         var username = "{{ app.user.username }}";
 
-        function enableInvertScroll() {
-            $.jInvertScroll(['.scroll'], {
-                width: 'auto',
-                height: 'auto',
-                onScroll: function (percent) {}
-            });
-        }
-
-        function calcMaxWidth() {
-            var width = 0;
-            $('.manual span').find('.article').each(function () {
-                width += $(this).outerWidth(true);
-            });
-            $('.manual').css('width', width + 750 + 'px');
-        }
-
-        $(document).ready(function () {
-            $('html, body').animate({
-                scrollTop: 0
-            }, 200);
-        });
-
         // $(".starfield").starscroll(bit-mode,layers,stars,dimension,speed,colour,varience,animate);
 
         /**
@@ -115,8 +93,26 @@
         * infiniteScroll
         */
         var offset = 0;
+        var max = 2;
         var deviceAgent = navigator.userAgent.toLowerCase();
         var agentID = deviceAgent.match(/(iphone|ipod|ipad)/);
+
+        function enableInvertScroll() {
+            $.jInvertScroll(['.scroll'], {
+                width: 'auto',
+                height: 'auto',
+                onScroll: function (percent) {}
+            });
+        }
+
+        function calcMaxWidth() {
+            $(window).trigger('resize');
+            var width = 0;
+            $('.manual span').find('.article').each(function () {
+                width += $(this).outerWidth(true);
+            });
+            $('.manual').css('width', width + 750 + 'px');
+        }
 
         $(window).data('ajaxready', true);
         $('.wrapper').append('<div class="loader-wrapper"><div class="loader"><div class="ball"></div><div class="ball"></div><div class="ball"></div></div></div>');
@@ -133,15 +129,23 @@
                 $(window).data('ajaxready', false);
 
                 $('.wrapper .loader-wrapper').fadeIn(400);
-                var url = "{{ path('article_more', {'offset' : 'offset_val'}) }}";
-                url = url.replace('offset_val', offset);
-                $.get(url, function (data) {
-                    if (data) {
-                        $('.wrapper .loader-wrapper').fadeIn(400);
-                        displayArticle(data);
-                        offset += 1;
-                        $(window).data('ajaxready', true);
+                $.ajax({
+                    url: "{{ path('article_more') }}",
+                    type: "POST",
+                    dataType: "json",
+                    data: {
+                        "offset": offset,
+                        "max": max
+                    },
+                    success: function (data) {
+                        if (data.length > 2) {
+                            $('.wrapper .loader-wrapper').fadeIn(400);
+                            displayArticle(data);
+                            offset += max;
+                            $(window).data('ajaxready', true);
+                        }
                     }
+                }).done(function () {
                     $('.wrapper .loader-wrapper').fadeOut(400);
                 });
             }
@@ -193,9 +197,11 @@
                     article += `</div>`
                 }
                 var liked = "";
+                var like_color = "";
                 $.each(json[i].thumb, function (i, item) {
                     if (item.username == username) {
                         liked = "liked";
+                        like_color = "violet";
                         return;
                     }
                 });
@@ -203,7 +209,7 @@
                                 <div class="separator-pink"></div>
 
                                 <div class="like">
-                                    <span class="fa fa-heart"></span>
+                                    <span class="fa fa-heart ` + like_color + `"></span>
                                     ` + json[i].thumb.length + `
                                 </div>
 
