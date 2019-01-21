@@ -71,7 +71,7 @@ input:-webkit-autofill {
 }
 
 .violet {
-    color: palevioletred;
+    color: #c23c69;
 }
 
 /* Menu
@@ -83,7 +83,7 @@ input:-webkit-autofill {
 }
 
 .menu-item, .menu-open-button {
-    background: palevioletred;
+    background: #c23c69;
     border-radius: 100%;
     width: 80px;
     height: 80px;
@@ -165,12 +165,12 @@ input:-webkit-autofill {
 
 .menu-item:focus {
     color: white;
-    background-color: palevioletred;
+    background-color: #c23c69;
 }
 
 .menu-item:hover {
     background-color: white;
-    color: palevioletred;
+    color: #c23c69;
 }
 
 .menu-item:nth-child(3) {
@@ -275,14 +275,19 @@ input:-webkit-autofill {
 }
 
 .manual .article {
+	display: flex;
+	flex-flow: row;
+	overflow-wrap: break-word;
     flex-shrink: 0;
-    width: calc(100vw - 5rem);
-    max-width: 500px;
+    /* width: 750px; */
+    /* max-width: 750px; */
     margin: 0 5%;
     cursor: default;
-    background-color: rgba(0, 0, 0, 0.459);
+    background-color: rgba(0, 0, 0, 0.5);
     padding: 20px 30px;
-    color: white;
+	color: white;
+	border: #c23c69 1px solid;
+	border-radius: 2px;
 }
 
 .article:nth-child(2n+2) {
@@ -309,8 +314,8 @@ input:-webkit-autofill {
 }
 
 .article .date {
-    color: palevioletred;
-    font-size: 10px;
+    color: #c23c69;
+    font-size: 13px;
 }
 
 .article .content {
@@ -319,12 +324,34 @@ input:-webkit-autofill {
 
 .article .separator-pink {
     margin: 10px 0;
-    border-top: 1px solid palevioletred;
+    border-top: 1px solid #c23c69;
 }
+
+.article .content__article {
+	width: 500px;
+	flex: 65%
+}
+
+.article .image__article {
+	cursor: pointer;
+	text-align: center;
+	flex: 35%;
+	margin-left: 30px;
+	margin-right: -30px;
+	border-left: white 1px solid;
+}
+
+.image__article .and-more {
+	display: none;
+	font-weight: bold;
+	font-size: 32px;
+	height: 128px;
+	line-height: 128px;
+} 
 
 .sondage {
     padding-top: 10px;
-    border-top: 1px solid palevioletred;
+    border-top: 1px solid #c23c69;
 }
 
 .sondage .title {
@@ -417,7 +444,8 @@ input:-webkit-autofill {
     margin: 0 10px;
     background-color: transparent;
     border-color: #c7c7c7;
-    color: white;
+	color: white;
+	font-weight: bold;
 }
 
 .btn-light:hover {
@@ -427,14 +455,14 @@ input:-webkit-autofill {
 
 .button-default {
     color: white;
-    background: palevioletred;
-    border-color: palevioletred;
+    background: #c23c69;
+    border-color: #c23c69;
 }
 
 .button-default:hover {
-    color: palevioletred;
+    color: #c23c69;
     background: transparent;
-    border-color: palevioletred;
+    border-color: #c23c69;
 }
 
 .button-danger {
@@ -453,18 +481,22 @@ input:-webkit-autofill {
 ================= */
 
 .login-wrapper, .article-wrapper {
+	text-align: center;
     color: #fff;
-    margin: 100px 0;
-    list-style-type: none;
+    margin-top: 120px;
+	list-style-type: none;
+	font-size: 16px;
 }
 
 .article-form {
-    text-align: center;
+	position: relative;
+	border: 1px solid #c23c69;
+	text-align: center;
 }
 
 .article-wrapper .submit-btn {
-    margin: 30px auto 10px auto;
-    width: 60%;
+    margin: 0 auto 10px auto;
+    width: 25%;
     border-radius: 50px;
 }
 
@@ -491,10 +523,10 @@ input:-webkit-autofill {
 
 .login-wrapper .login-form, .article-wrapper .article-form {
     width: 50%;
-    margin: 0 auto;
+    margin: 0 auto 40px auto;
     max-width: 400px;
     padding: 20px;
-    background-color: rgba(0, 0, 0, 0.314);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .article-wrapper .article-form {
@@ -506,7 +538,7 @@ input:-webkit-autofill {
 }
 
 .login-wrapper a {
-    color: palevioletred;
+    color: #c23c69;
 }
 
 .form-row {
@@ -519,17 +551,18 @@ input:-webkit-autofill {
     border: none;
     border-radius: 0;
     box-shadow: none;
-    border-bottom: palevioletred 1px solid;
+    border-bottom: #c23c69 1px solid;
 }
 
 .login-wrapper input::placeholder, .login-wrapper textarea::placeholder, .article-wrapper input::placeholder, .article-wrapper textarea::placeholder, .modal input::placeholder {
-    color: dimgray;
+	/* color: dimgray; */
+	color: white;
 }
 
 .article-wrapper input:focus {
     -webkit-box-shadow: none;
     box-shadow: none;
-    border-bottom: palevioletred 1px solid;
+    border-bottom: #c23c69 1px solid;
 }
 
 .form-row .form-control-feedback {
@@ -548,7 +581,7 @@ input:-webkit-autofill {
 
 .form-row .form-control:focus, .modal .form-control:focus {
     border: none;
-    border-bottom: palevioletred 1px solid;
+    border-bottom: #c23c69 1px solid;
     box-shadow: none;
 }
 
@@ -582,12 +615,12 @@ input:-webkit-autofill {
 .sondage-row .btn-round {
     display: inline-block;
     position: relative;
-    background-color: palevioletred;
+    background-color: #c23c69;
     color: white;
     height: 40px;
     width: 40px;
     font-size: 18px;
-    border: 2px solid palevioletred;
+    border: 2px solid #c23c69;
     border-radius: 50%;
 }
 
@@ -649,13 +682,13 @@ input:-webkit-autofill {
     border: 20px solid rgba(0, 0, 0, 0);
     border-radius: 3px;
     border-image: url('../gfx/border-image.png') 25 repeat;
-    text-align: center;
-    color: dimgray;
+	text-align: center;
+    /* color: dimgray; */
 }
 
 #drop a {
-    background-color: palevioletred;
-    border: palevioletred 2px solid;
+    background-color: #c23c69;
+    border: #c23c69 2px solid;
     padding: 12px 26px;
     color: #fff;
     font-size: 14px;
@@ -679,13 +712,13 @@ input:-webkit-autofill {
 #upload ul {
     list-style: none;
     margin: 0 -30px;
-    border-top: 1px solid palevioletred;
-    border-bottom: 1px solid palevioletred;
+    border-top: 1px solid #c23c69;
+    border-bottom: 1px solid #c23c69;
 }
 
 #upload ul li {
-    border-top: 1px solid palevioletred;
-    border-bottom: 1px solid palevioletred;
+    border-top: 1px solid #c23c69;
+    border-bottom: 1px solid #c23c69;
     height: 62px;
     position: relative;
 }
@@ -750,7 +783,7 @@ input:-webkit-autofill {
 ================= */
 
 .modal-header, .modal h4, .modal .close {
-    background-color: palevioletred;
+    background-color: #c23c69;
     color: white !important;
     text-align: center;
     font-size: 30px;
@@ -787,7 +820,7 @@ input:-webkit-autofill {
     display: grid;
     font-family: "Open Sans", sans-serif;
     font-size: 16px;
-    color: palevioletred;
+    color: #c23c69;
     margin: 0;
 }
 
@@ -840,7 +873,7 @@ input:-webkit-autofill {
     content: "";
     width: 100%;
     height: 100%;
-    background: palevioletred;
+    background: #c23c69;
     display: block;
     transform: scale(0);
     opacity: 1;
@@ -852,12 +885,12 @@ input:-webkit-autofill {
 }
 
 .cbx:hover span:first-child {
-    border-color: palevioletred;
+    border-color: #c23c69;
 }
 
 .inp-cbx:checked+.cbx span:first-child {
-    background: palevioletred;
-    border-color: palevioletred;
+    background: #c23c69;
+    border-color: #c23c69;
     animation: wave 0.4s ease;
 }
 
@@ -915,8 +948,8 @@ input:-webkit-autofill {
     right: 0;
     height: 100vh;
     width: 24px;
-    /* border-top: 8px solid palevioletred;
-    border-bottom: 8px solid palevioletred; */
+    /* border-top: 8px solid #c23c69;
+    border-bottom: 8px solid #c23c69; */
     overflow: hidden;
 }
 
@@ -924,7 +957,7 @@ input:-webkit-autofill {
     position: absolute;
     width: 8px;
     height: 0;
-    background: palevioletred;
+    background: #c23c69;
     margin: 0;
 }
 
@@ -980,7 +1013,7 @@ input:-webkit-autofill {
     margin: 1px;
     border-radius: 50%;
     border: 5px solid #fff;
-    border-color: #fff transparent palevioletred transparent;
+    border-color: #fff transparent #c23c69 transparent;
     animation: lds-dual-ring 1.2s linear infinite;
 }
 
@@ -1046,7 +1079,8 @@ input:-webkit-autofill {
 }
 
 .funkyradio input[type="radio"]:checked~label, .funkyradio input[type="checkbox"]:checked~label {
-    color: #777;
+	/* color: #777; */
+	color: white;
 }
 
 .funkyradio input[type="radio"]:checked~label:before, .funkyradio input[type="checkbox"]:checked~label:before {
@@ -1062,7 +1096,7 @@ input:-webkit-autofill {
 
 .funkyradio-default input[type="radio"]:checked~label:before, .funkyradio-default input[type="checkbox"]:checked~label:before {
     color: black;
-    background-color: palevioletred;
+    background-color: #c23c69;
 }
 
 /* Like
@@ -1078,7 +1112,7 @@ input:-webkit-autofill {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    /* font-size: 1rem; */
     transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     -webkit-filter: grayscale(100%);
     filter: grayscale(100%);
@@ -1090,8 +1124,8 @@ input:-webkit-autofill {
 }
 
 .like-button.liked {
-    color: palevioletred;
-    border-color: palevioletred;
+    color: #c23c69;
+    border-color: #c23c69;
     -webkit-filter: grayscale(0);
     filter: grayscale(0);
 }
@@ -1102,8 +1136,8 @@ input:-webkit-autofill {
 }
 
 .like-button.liked:hover {
-    color: palevioletred;
-    border-color: palevioletred;
+    color: #c23c69;
+    border-color: #c23c69;
 }
 
 .like-icon {
@@ -1399,7 +1433,7 @@ input:-webkit-autofill {
 ================= */
 
 .scrollbar {
-    scrollbar-base-color: palevioletred;
+    scrollbar-base-color: #c23c69;
     scrollbar-face-color: rgb(200, 100, 135);
     /* scrollbar-3dlight-color: #cc0000; */
     /* scrollbar-highlight-color: #cc0000; */
@@ -1437,7 +1471,7 @@ input:-webkit-autofill {
 }
 
 .progress-pie-chart.gt-50 {
-    background-color: palevioletred;
+    background-color: #c23c69;
 }
 
 .ppc-progress {
@@ -1460,7 +1494,7 @@ input:-webkit-autofill {
     width: 50px;
     height: 50px;
     clip: rect(0, 25px, 50px, 0);
-    background: palevioletred;
+    background: #c23c69;
     transform: rotate(60deg);
 }
 
@@ -1512,4 +1546,13 @@ input:-webkit-autofill {
     color: white;
     padding-left: 10px;
     border-bottom: 1px solid white;
+}
+
+.separator-top {
+	position: absolute;
+    background-color: transparent;
+	text-align: left;
+	top: -22px;
+	left: 0px;
+	font-size: 20px;
 }
